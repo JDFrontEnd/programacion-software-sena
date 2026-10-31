@@ -957,3 +957,25 @@ thislist = ["apple", "banana", "cherry"]
 thistuple = ("kiwi", "orange")
 thislist.extend(thistuple)
 
+
+
+
+
+
+
+
+
+print("<==================================>")
+print("\n \t Registro de datos \n")
+print("<==================================>")
+print("\n-----------------------------------")
+nameUser = input("Nombre Completo: ")
+numberIdentification = int(input("Numero de identificacion: "))
+fechaNacimiento = input("Fecha de Nacimiento (DD/MM/AA): ")
+gender = input("Genero (Masculino, femenino, otro.): ")
+Chilldren = input("Tienes Hijos: ")
+numberChilldren = int(input("Si tienes hijos, cuantos hijos tienes? "))
+print("------------------------------------\n")
+
+print("<===== Datos Personales =====>")
+print(f"Nombre de usuario: {nameUser}\nNuemeeo de identificacion: {numberIdentification}\nFecha de nacimiento: {fechaNacimiento}\n")
