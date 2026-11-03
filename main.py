@@ -30,6 +30,70 @@ x = 1 # int
 y = 2.8 # float
 z = 1j # complex
 
+# Presentación personal
+name = "juan diego"
+age = 25
+city = "medellin"
+
+print(f"Hola, soy {name}Tengo {age} años y vivo en {city}.")
+
+
+
+# Factura de una compra
+utiles = {
+    "cuaderno": 4500,
+    "lapiz": 1800
+}
+
+print("<==============================>\n")
+print(utiles)
+print("\n<==============================>\n")
+
+cantidadLapiz = int(input("cuantos lapices quieres comprar: "))
+cantidadCuaderno = int(input("cuantos cuadernos quieres comprar: "))
+
+totalCuaderno = cantidadCuaderno * utiles["cuaderno"]
+totalLapiz = cantidadLapiz * utiles["lapiz"]
+
+print("\n======================================")
+print("\tFactura de compra")
+print("======================================\n")
+print("---------------------------------------")
+print(f"Cuadernos: {cantidadCuaderno}\nSubtotal cuadernos: ${totalCuaderno}")
+print("---------------------------------------")
+print(f"Lapiz: {cantidadLapiz}\nSubtotal lapiz: ${totalLapiz}")
+print("---------------------------------------")
+print(f"TOTAL: ${totalLapiz + totalCuaderno}")
+
+
+
+
+# Salario semanal
+
+salario = 65000
+dia = salario
+semana  = salario * 6
+mes = semana * 5 - 120000 * 5
+print(f"salario semanal: ${semana}\nDinero ganado en 4 semanas: ${semana*4}\nTotal de dinero si gastara $120.000 cada semana: {mes}")
+
+# Analizador de nombres
+name = "juan diego mesa"
+print(name.upper())
+print(name.lower())
+print(name.split(" ")[0])
+print(name.split(" ")[1])
+
+
+# Mensaje secreto
+mensaje = "Aprender Python es divertido"
+print(mensaje[0:8])
+print(mensaje[9:14])
+print(mensaje[-9:])
+new = mensaje.split(" ")
+print(new)
+print(new[3], new[2], new[1], new[0])
+
+
 NumImpar = random.randrange(1, 20, 3)
 NumPar = random.randrange(2, 20, 2)
 
@@ -140,13 +204,23 @@ saldo = consignacion + saldo
 print(f"saldo total: ${saldo * TRM}")  
 
 
-passward = 123456789 
-user = "juan"
 
-userInput = input("usuario:")
-passwardInput = int(input("contraseña:"))
 
-if ((user == userInput) & (passward == passwardInput)):
-    print(True)
-else:
-    print(False)
+
+
+
+
+print("<==================================>")
+print("\n \t Registro de datos \n")
+print("<==================================>")
+print("\n-----------------------------------")
+nameUser = input("Nombre Completo: ")
+numberIdentification = int(input("Numero de identificacion: "))
+fechaNacimiento = input("Fecha de Nacimiento (DD/MM/AA): ")
+gender = input("Genero (Masculino, femenino, otro.): ")
+Chilldren = input("Tienes Hijos: ")
+numberChilldren = int(input("Si tienes hijos, cuantos hijos tienes? "))
+print("------------------------------------\n")
+
+print("<===== Datos Personales =====>")
+print(f"Nombre de usuario: {nameUser}\nNuemeeo de identificacion: {numberIdentification}\nFecha de nacimiento: {fechaNacimiento}\n")

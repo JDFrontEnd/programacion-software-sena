@@ -9,7 +9,7 @@ def loginUser():
     global usuario
     print("\n-------------------------------------")
     usuario = input("ingrese su nombre de usuario: ")
-    usuario.strip()
+    usuario = usuario.strip()
     if usuario != user["usuario"]:
         print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
         return loginUser()
@@ -22,7 +22,6 @@ def loginPassward():
     global passward
     print("\n-------------------------------------")
     passward = int(input("ingrese su contraseña: "))
-    passward.sprip()
     if passward != user["passward"]:
         print("contraseña incorrecta")
         return loginPassward()
@@ -109,7 +108,7 @@ def action():
 
 def interfaz():
     global accoutConfirmation
-    print("<===============================================================================>")
+    print("\n<===============================================================================>")
     accoutConfirmation = input("\n \t \t \tHOLA BIENVENIDO A BANK.PY \n \t \t \t¿tienes una cuenta abierta?\n \t \t \t \t si - no -> ")
     
     if accoutConfirmation != "si" and accoutConfirmation != "no":

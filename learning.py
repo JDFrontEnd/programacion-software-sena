@@ -958,24 +958,41 @@ thistuple = ("kiwi", "orange")
 thislist.extend(thistuple)
 
 
+""" 
+Python - Eliminar elementos de la lista
+
+Eliminar el elemento especificado
+El método elimina el elemento especificado.remove()
+"""
+thislist = [2, 5, 5, 5]
+thislist.remove(2)
 
 
+""" 
+Si hay más de un elemento con el valor especificado, el método elimina el primero Ocurrencia:
+Si no especificas el índice, el método elimina el último elemento.
+"""
+thislist = [5, 5, 8, 47, 6]
+thislist.pop(5)
 
 
+""" 
+La palabra clave (del) también elimina la especificación Índice:
+"""
+thislist = [5, 4, 1, 23]
+del thislist[3]
+""" 
+La palabra clave también puede eliminar la lista por completo.
+"""
+del thislist
 
 
+""" 
+Borrar la lista
+El método clear() vacía la lista.
 
-print("<==================================>")
-print("\n \t Registro de datos \n")
-print("<==================================>")
-print("\n-----------------------------------")
-nameUser = input("Nombre Completo: ")
-numberIdentification = int(input("Numero de identificacion: "))
-fechaNacimiento = input("Fecha de Nacimiento (DD/MM/AA): ")
-gender = input("Genero (Masculino, femenino, otro.): ")
-Chilldren = input("Tienes Hijos: ")
-numberChilldren = int(input("Si tienes hijos, cuantos hijos tienes? "))
-print("------------------------------------\n")
+La lista sigue ahí, pero no tiene contenido.
+"""
+thislist = [4, 4, 7, 6]
+thislist.clear()
 
-print("<===== Datos Personales =====>")
-print(f"Nombre de usuario: {nameUser}\nNuemeeo de identificacion: {numberIdentification}\nFecha de nacimiento: {fechaNacimiento}\n")
