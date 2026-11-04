@@ -726,7 +726,7 @@ z = x
 # print(x == y)
 
 """ 
-El operador devuelve si ambas variables no apuntan al mismo objeto:is notTrue
+El operador is not devuelve True si ambas variables no apuntan al mismo objeto:
 
 """
 x = ["apple", "banana"]
@@ -973,7 +973,7 @@ Si hay más de un elemento con el valor especificado, el método elimina el prim
 Si no especificas el índice, el método elimina el último elemento.
 """
 thislist = [5, 5, 8, 47, 6]
-thislist.pop(5)
+thislist.pop(3)
 
 
 """ 
@@ -996,3 +996,6 @@ La lista sigue ahí, pero no tiene contenido.
 thislist = [4, 4, 7, 6]
 thislist.clear()
 
+""" 
+Python - Ordenar listas
+"""
