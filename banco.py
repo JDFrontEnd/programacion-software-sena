@@ -109,8 +109,7 @@ def action():
 def interfaz():
     global accoutConfirmation
     print("\n<===============================================================================>")
-    accoutConfirmation = input("\n \t \t \tHOLA BIENVENIDO A BANK.PY \n \t \t \t¿tienes una cuenta abierta?\n \t \t \t \t si - no -> ")
-    
+    accoutConfirmation = input("\n \t \t \t  HOLA BIENVENIDO A BANK.PY \n \t \t \t¿tienes una cuenta abierta?\n \t \t \t \t si - no -> ")
     if accoutConfirmation != "si" and accoutConfirmation != "no":
         print("¡Error!, copie correctamente el comando")
         return interfaz()
