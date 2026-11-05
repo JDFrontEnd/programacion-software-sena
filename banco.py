@@ -1,3 +1,5 @@
+user.py
+
 user = {
     "usuario": "juan diego mesa",
     "passward": 123456789,
@@ -78,6 +80,7 @@ def GoBack():
     global regresar
     print("\n-------------------------------------")
     regresar = input("Escribe 'salir' para salir de tu cuenta o 'inicio' para ir al menu de inicio: ")
+    regresar = regresar.strip()
     print("-------------------------------------")
     if regresar != "salir" and regresar != "inicio":
         print("Error: ingrese la accion correctamente")
@@ -95,6 +98,7 @@ def action():
     print(f"Saldo actual: {user['saldo']}")
     print("-------------")
     actionUser = input("que quieres hacer: (retirar, transferir, consignar, salir) ")
+    actionUser = actionUser.strip()
     if actionUser != "retirar" and actionUser != "transferir" and actionUser != "consignar" and actionUser != "salir":
         print("¡Error!, copie correctamente el comando")
         return action()
@@ -116,6 +120,7 @@ def interfaz():
     print("\n\t\t\t¿tienes una cuenta abierta?")
     print("\t\t  ----------------------------------------")
     accoutConfirmation = input("\t\t\t\tsi \\ no -> ")
+    accoutConfirmation = accoutConfirmation.strip()
     if accoutConfirmation != "si" and accoutConfirmation != "no":
         print("¡Error!, copie correctamente el comando")
         return interfaz()
