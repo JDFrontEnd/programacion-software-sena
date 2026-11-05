@@ -1,5 +1,3 @@
-user.py
-
 user = {
     "usuario": "juan diego mesa",
     "passward": 123456789,
