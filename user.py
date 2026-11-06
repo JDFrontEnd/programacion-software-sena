@@ -10,7 +10,7 @@ users.append({"usuario":"danilo", "passward":3510, "saldo":0})
 
 users[0].update({"passward":000000})
 
-print(users[0], users[5])
+#print(users[0], users[5])
 
 
 """ Elementos del diccionario
@@ -36,3 +36,12 @@ Obtén el valor de la clave "model":
 
 x = thisdict.get("model")
 """
+
+
+frutas1 = ["banano"]
+frutas = ["mora", "pera", "manzana", "mango", "uva", frutas1]
+
+
+for a in frutas:
+  for b in a.split(" "):
+    print(b) 

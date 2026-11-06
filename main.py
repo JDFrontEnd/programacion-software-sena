@@ -204,12 +204,7 @@ saldo = consignacion + saldo
 print(f"saldo total: ${saldo * TRM}")  
 
 
-
-
-
-
-
-
+""" datos personales """
 print("<==================================>")
 print("\n \t Registro de datos \n")
 print("<==================================>")
@@ -224,3 +219,6 @@ print("------------------------------------\n")
 
 print("<===== Datos Personales =====>")
 print(f"Nombre de usuario: {nameUser}\nNuemeeo de identificacion: {numberIdentification}\nFecha de nacimiento: {fechaNacimiento}\n")
+
+respueste = input("señor usuario ingrese la traduccion literal de la palabra ")
+
