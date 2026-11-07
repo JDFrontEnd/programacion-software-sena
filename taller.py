@@ -204,20 +204,20 @@ Si tiene 65 o menos y es estudiante, paga la mitad del pasaje.
 Si tiene 65 o menos y no es estudiante, paga el pasaje completo. 
 
 Luego pide cuántos pasajes quiere comprar y muestra el total a pagar.  """
+
 print("\n================================================")
 print("\tTARIFA DE TRANSPORTE")
 print("================================================")
 pasaje = 3000
 edad = int(input("Ingresa tu edad: "))
+pregunta = input("Eres estudiante (si/no): ").strip().lower()
 
 if edad > 65:
     print(f"Por ser mayor de 65 viajas gratis")
 elif edad <= 65:
-    pregunta = input("Eres estudiante (si/no): ")
-    pregunta.lower()
-    pregunta.strip()
-    if "si" in pregunta:
+    cantidad = int(input("cuantos pasajes quieres comprar: "))
+    if pregunta == "si":
         pasaje/=2
-        print(f"Por ser estudiante tu pasaje sera de {pasaje}")
-    elif "no" in pregunta:
-        print(f"El valor del pasaje es {pasaje}")
+        print(f"Por ser estudiante tu pasaje sera menor. Total a pagar: {pasaje * cantidad}")
+    elif pregunta == "no":
+        print(f"El valor del pasaje es {pasaje * cantidad}")
