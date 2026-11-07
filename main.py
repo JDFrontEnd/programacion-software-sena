@@ -222,3 +222,4 @@ print(f"Nombre de usuario: {nameUser}\nNuemeeo de identificacion: {numberIdentif
 
 respueste = input("señor usuario ingrese la traduccion literal de la palabra ")
 
+""" piedr """

@@ -38,10 +38,17 @@ x = thisdict.get("model")
 """
 
 
-frutas1 = ["banano"]
-frutas = ["mora", "pera", "manzana", "mango", "uva", frutas1]
+num = ["6", "7", "8"]
+num1 = ["1", "2", "3", "4", "5"]
 
 
-for a in frutas:
-  for b in a.split(" "):
-    print(b) 
+for a in num,num1:
+    for b in a:
+      print(b)
+
+frutas = ["uva", "mora", "pera"]
+frutas1 = ["lulo", "anis", "poma", frutas]
+
+for a in frutas1[:3],frutas1[3]:
+    for b in a:
+      print(b)
