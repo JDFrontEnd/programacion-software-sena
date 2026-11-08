@@ -53,11 +53,10 @@ for a in frutas1[:3],frutas1[3]:
     for b in a:
       print(b) """
       
-Valor = input("Ingresa dos numeros para comprobar quien es el mayor (245,21): ").strip().split(",")
-print("--------------------------------------------------¬")
 
-Valor = int(Valor[0]), int(Valor[1])
+contraseña = "qwerty"
 
-print(type(Valor[0]))
-print(type(Valor[1]))
 
+
+
+x = contraseña.isalpha()

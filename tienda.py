@@ -8,7 +8,7 @@ menu = {
  
 
 def MenuFun():
-    ver_menu = input("para ver el menu escriba'ver menu' /")
+    ver_menu = input("quieres ver el menu (si/no)")
     if ver_menu != "ver menu":
         print("ERROR: para ver el menu ingrese correctamente 'ver menu'")
         return MenuFun()
