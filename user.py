@@ -56,7 +56,3 @@ for a in frutas1[:3],frutas1[3]:
 
 contraseña = "qwerty"
 
-
-
-
-x = contraseña.isalpha()
