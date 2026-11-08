@@ -37,7 +37,7 @@ Obtén el valor de la clave "model":
 x = thisdict.get("model")
 """
 
-
+""" 
 num = ["6", "7", "8"]
 num1 = ["1", "2", "3", "4", "5"]
 
@@ -51,4 +51,13 @@ frutas1 = ["lulo", "anis", "poma", frutas]
 
 for a in frutas1[:3],frutas1[3]:
     for b in a:
-      print(b)
+      print(b) """
+      
+Valor = input("Ingresa dos numeros para comprobar quien es el mayor (245,21): ").strip().split(",")
+print("--------------------------------------------------¬")
+
+Valor = int(Valor[0]), int(Valor[1])
+
+print(type(Valor[0]))
+print(type(Valor[1]))
+
