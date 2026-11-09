@@ -37,7 +37,7 @@ Obtén el valor de la clave "model":
 x = thisdict.get("model")
 """
 
-
+""" 
 num = ["6", "7", "8"]
 num1 = ["1", "2", "3", "4", "5"]
 
@@ -51,4 +51,25 @@ frutas1 = ["lulo", "anis", "poma", frutas]
 
 for a in frutas1[:3],frutas1[3]:
     for b in a:
-      print(b)
+      print(b) """
+      
+
+print("\n=================================================================")
+print("\t\t\tCALCULADORA")
+print("=================================================================")
+operacion = input("Ingrese una operacion matematica, formato(2 + 4): ").strip().split(" ")
+print("------------------------------------------------------------¬")
+operacion[0] = int(operacion[0])
+operacion[2] = int(operacion[2])
+
+if len(operacion) != 3:
+    print("¡Operacion no valida!")
+elif operacion[1] == "+":
+    print(f"Resultado: {operacion[0] + operacion[2]}")
+elif operacion[1] == "-":
+    print(f"Resultado: {operacion[0] - operacion[2]}")
+elif operacion[1] == "*":
+    print(f"Resultado: {operacion[0] * operacion[2]}")
+elif operacion[1] == "/":
+    print(f"Resultado: {operacion[0] // operacion[2]}")
+

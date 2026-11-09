@@ -8,11 +8,11 @@ menu = {
  
 
 def MenuFun():
-    ver_menu = input("para ver el menu escriba'ver menu' /")
-    if ver_menu != "ver menu":
-        print("ERROR: para ver el menu ingrese correctamente 'ver menu'")
+    ver_menu = input("¿quieres ver el menu? (si): ").strip().lower()
+    if ver_menu != "si":
+        print("ERROR: ingrese correctamente 'si'")
         return MenuFun()
-    elif ver_menu == "ver menu":
+    elif ver_menu == "si":
         print(menu)
 MenuFun()
     

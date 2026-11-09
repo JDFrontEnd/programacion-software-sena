@@ -492,52 +492,52 @@ Métodos de cuerdas
     Python tiene un conjunto de métodos integrados que puedes usar en cadenas.
     
     Nota: Todos los métodos de cadenas devolven nuevos valores. No cambian la cuerda original.
-
-capitalize() convierte el primer caracter en mayucula 
-casefold() convierte un str en minusculas
-center() devuelve el str centrado
-count()	Returns the number of times a specified value occurs in a string
-encode() Returns an encoded version of the string
-endswith() Returns true if the string ends with the specified value
-expandtabs() Sets the tab size of the string
-find()	Searches the string for a specified value and returns the position of where it was found
-format()	Formats specified values in a string
-format_map()	Formats specified values in a string
-index()	Searches the string for a specified value and returns the position of where it was found
-isalnum()	Returns True if all characters in the string are alphanumeric
-isalpha()	Returns True if all characters in the string are in the alphabet
-isascii()	Returns True if all characters in the string are ascii characters
-isdecimal()	Returns True if all characters in the string are decimals
-isdigit()	Returns True if all characters in the string are digits
-isidentifier()	Returns True if the string is an identifier
-islower()	Returns True if all characters in the string are lower case
-isnumeric()	Returns True if all characters in the string are numeric
-isprintable()	Returns True if all characters in the string are printable
-isspace()	Returns True if all characters in the string are whitespaces
-istitle()	Returns True if the string follows the rules of a title
-isupper()	Returns True if all characters in the string are upper case
-join()	Joins the elements of an iterable to the end of the string
-ljust()	Returns a left justified version of the string
-lower()	Converts a string into lower case
-lstrip()	Returns a left trim version of the string
-maketrans()	Returns a translation table to be used in translations
-partition()	Returns a tuple where the string is parted into three parts
-replace()	Returns a string where a specified value is replaced with a specified value
-rfind()	Searches the string for a specified value and returns the last position of where it was found
-rindex()	Searches the string for a specified value and returns the last position of where it was found
-rjust()	Returns a right justified version of the string
-rpartition()	Returns a tuple where the string is parted into three parts
-rsplit()	Splits the string at the specified separator, and returns a list
-rstrip()	Returns a right trim version of the string
-split()	Splits the string at the specified separator, and returns a list
-splitlines()	Splits the string at line breaks and returns a list
-startswith()	Returns true if the string starts with the specified value
-strip()	Returns a trimmed version of the string
-swapcase()	Swaps cases, lower case becomes upper case and vice versa
-title()	Converts the first character of each word to upper case
-translate()	Returns a translated string
-upper()	Converts a string into upper case
-zfill()	Fills the string with a specified number of 0 values at the beginning
+Método	Descripción
+capitalize()	Convierte el primer carácter a mayúscula
+casefold()	Convierte la cadena a minúsculas
+center()	Devuelve una cadena centrada
+count()	Devuelve el número de veces que aparece un valor especificado en una cadena
+encode()	Devuelve una versión codificada de la cadena
+endswith()	Devuelve True si la cadena termina con el valor especificado
+expandtabs()	Establece el tamaño de las tabulaciones en la cadena
+find()	Busca un valor especificado en la cadena y devuelve la posición donde se encontró
+format()	Da formato a valores especificados dentro de una cadena
+format_map()	Da formato a valores especificados dentro de una cadena
+index()	Busca un valor especificado en la cadena y devuelve la posición donde se encontró
+isalnum()	Devuelve True si todos los caracteres de la cadena son alfanuméricos
+isalpha()	Devuelve True si todos los caracteres de la cadena pertenecen al alfabeto
+isascii()	Devuelve True si todos los caracteres de la cadena son caracteres ASCII
+isdecimal()	Devuelve True si todos los caracteres de la cadena son decimales
+isdigit()	Devuelve True si todos los caracteres de la cadena son dígitos
+isidentifier()	Devuelve True si la cadena es un identificador válido
+islower()	Devuelve True si todos los caracteres de la cadena están en minúsculas
+isnumeric()	Devuelve True si todos los caracteres de la cadena son numéricos
+isprintable()	Devuelve True si todos los caracteres de la cadena son imprimibles
+isspace()	Devuelve True si todos los caracteres de la cadena son espacios en blanco
+istitle()	Devuelve True si la cadena sigue las reglas de un título
+isupper()	Devuelve True si todos los caracteres de la cadena están en mayúsculas
+join()	Une los elementos de un iterable al final de la cadena
+ljust()	Devuelve una versión de la cadena alineada a la izquierda
+lower()	Convierte la cadena a minúsculas
+lstrip()	Devuelve una versión de la cadena sin espacios al principio
+maketrans()	Devuelve una tabla de traducción para ser utilizada en operaciones de traducción
+partition()	Devuelve una tupla en la que la cadena se divide en tres partes
+replace()	Devuelve una cadena en la que un valor especificado es reemplazado por otro valor
+rfind()	Busca un valor especificado en la cadena y devuelve la última posición donde se encontró
+rindex()	Busca un valor especificado en la cadena y devuelve la última posición donde se encontró donde se encontró
+rjust()	Devuelve una versión de la cadena alineada a la derecha
+rpartition()	Devuelve una tupla en la que la cadena se divide en tres partes
+rsplit()	Divide la cadena en el separador especificado y devuelve una lista
+rstrip()	Devuelve una versión de la cadena sin espacios (o caracteres especificados) al final
+split()	Divide la cadena en el separador especificado y devuelve una lista
+splitlines()	Divide la cadena en los saltos de línea y devuelve una lista
+startswith()	Devuelve verdadero (true) si la cadena comienza con el valor especificado
+strip()	Devuelve una versión de la cadena sin espacios (o caracteres especificados) al principio y al final
+swapcase()	Invierte el formato de mayúsculas y minúsculas: las minúsculas pasan a mayúsculas y viceversa
+title()	Convierte el primer carácter de cada palabra a mayúscula
+translate()	Devuelve una cadena traducida
+upper()	Convierte una cadena a mayúsculas
+zfill()	Rellena la cadena con un número especificado de ceros al principio
 """
 
 
