@@ -114,7 +114,7 @@ print("\n================================================")
 print("\tEL MAYOR DE DOS NUMEROS")
 print("================================================")
 Valor1 = int(input("Ingresa un numero de cualquier valor: "))
-Valor2 = int(input("Ingresa un numero de cualquier valor: "))
+Valor2 = int(input("Ingresa otro numero de cualquier valor: "))
 print("--------------------------------------------------")
 if Valor1 > Valor2:
     print(f"{Valor1} es mayor que {Valor2}")
@@ -134,8 +134,8 @@ print("================================================")
 number1 = int(input("ingrese el primer valor de la operacion: "))
 operador = input("ingrese el operador matematico (suma: +, resta: -, multiplicacion: *, division: /): ")
 number2 = int(input("ingrese el segundo valor de la operacion: "))
-
-if "+" in operador:
+#corre
+if operador == "+":
     print(f"Resultado: {number1 + number2}")
 elif "-" in operador:
     print(f"Resultado: {number1 - number2}")
