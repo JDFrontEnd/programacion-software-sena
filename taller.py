@@ -2,7 +2,7 @@
 Ejercicio 1: ¿Mayor o menor de edad? 
 Enunciado: Pide al usuario su edad. Si es 18 o más, muestra “Eres mayor de edad”. Si no, muestra “Eres menor de edad”. 
 """
-""" print("=============================================")
+print("=============================================")
 print("\tCALCULA SI ERES MAYOR O MENOR")
 print("=============================================")
 name = input("Cual es tu nombre? ")
@@ -16,7 +16,7 @@ elif age >= 18 and age <= 65:
     print(f"hola, {name} eres mayor de edad")
 else:
     print(f"Hola, {name} eres adulto mayor") 
- """
+
 
 
 
@@ -44,7 +44,7 @@ elif num == 0:
 Ejercicio 3: ¿Par o impar? 
 Enunciado: Pide un número entero y dile si es par o impar. (Pista: usa el operador %, que da el residuo de una división). 
 """
-""" print("\n================================================")
+print("\n================================================")
 print("\t  NUMERO PAR O IMPAR")
 print("==================================================")
 num1 = int(input("Ingresa un numero entero mayor a 0 para determinar si es par o impar: "))
@@ -55,7 +55,7 @@ if num1 == 0:
 elif num1 % 2 == 0:
     print(f"El numero ingresado ({num1}) es par")
 else:
-    print(f"El numero ingresado ({num1}) es impar")  """
+    print(f"El numero ingresado ({num1}) es impar")  
     
     
     
