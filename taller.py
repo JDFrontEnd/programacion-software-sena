@@ -197,7 +197,7 @@ if edad > 12:
     pregunta = input("tienes dinero suficiente para ingresar (si/no): ")
     print("--------------------------------------------------------------¬")
     if "no" in pregunta:
-        print("¡aahhh! y entonces como quiere entrar sin plata, aca no somos veneficiencia volve cuando tengas money")
+        print("¡aahhh! y entonces como quiere entrar sin plata, aca no somos beneficiencia volve cuando tengas money")
     elif "si" in pregunta:
         print("disfrute de la pelicula y gracias por preferir ver sus peliculas en este cine")
     
