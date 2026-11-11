@@ -131,7 +131,7 @@ elif int(num_May_Men) == int(num_May_Men2):
 Enunciado: Pide dos números y una operación (+, -, *, /). Realiza la operación elegida y muestra el resultado. Si la operación no es válida, avisa al usuario.  """
     
 print("\n=================================================================\n\t\t\tCALCULADORA=================================================================")
-operacionC1= input("Ingrese una operacion matematica, formato(2 + 4): ").strip().split(" ")
+operacionC1= input("Ingrese una operacion matematica, formato(2 + 4): ").strip().split()
 print("-----------------------------------------------------------------¬")
 operacionC1[0] = int(operacionC1[0])
 operacionC1[2] = int(operacionC1[2])
@@ -155,7 +155,7 @@ Ejercicio 8: Calculadora con división segura (if anidado)
 Enunciado: Mejora el ejercicio anterior: si el usuario elige la división, verifica con un if anidado que el segundo número no sea 0 (no se puede dividir entre cero). 
 """
 print("\n=================================================================\n\t\t\tCALCULADORA\n=================================================================")
-operacionC2 = input("Ingrese una operacion matematica, formato(2 + 4): ").strip().split(" ")
+operacionC2 = input("Ingrese una operacion matematica, formato(2 + 4): ").strip().split()
 print("-----------------------------------------------------------------¬")
 operacionC2[0] = int(operacionC2[0])
 operacionC2[2] = int(operacionC2[2])

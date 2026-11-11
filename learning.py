@@ -437,6 +437,60 @@ a = "Hello, World!"
 #print(a.split(",")) returns ['Hello', ' World!']
 
 """ 
+join(): Une las cadenas en una colección en una sola cadena con un separador.
+"""
+my_list = ['hello', 'world']
+
+joined_my_str = ' '.join(my_list)
+# print(joined_my_str)  # hello world
+
+
+""" 
+startswith(prefix): Devuelve un booleano que indica si una cadena comienza con el prefijo especificado.
+"""
+my_str = 'hello world'
+starrs_with_hello = my_str.startswith('hello')
+# print(starrs_with_hello) #True
+
+""" 
+endswith(suffix): Devuelve un booleano que indica si una cadena termina con el sufijo especificado.
+"""
+my_str = 'hello world'
+
+ends_with_world = my_str.endswith('world')
+# print(ends_with_world)  # True
+
+""" 
+find(substring): Devuelve el índice de la primera ocurrencia de substring, o -1 si no la encuentra.
+"""
+my_str = 'hello world'
+
+world_index = my_str.find('world')
+# print(world_index)  # 6
+
+""" 
+count(substring): Devuelve el número de ocurrencias no superpuestas de una subcadena en una cadena.
+"""
+my_str = 'hello world'
+
+o_count = my_str.count('o')
+# print(o_count)  # 2
+
+""" 
+isupper(): Devuelve True si la cadena contiene al menos un carácter con distinción de mayúsculas y todas las letras con distinción están en mayúsculas. De lo contrario, devuelve False.
+"""
+my_str = 'hello world'
+
+is_all_upper = my_str.isupper()
+# print(is_all_upper)  # False
+""" 
+islower(): Devuelve True si la cadena contiene al menos un carácter con distinción de mayúsculas y todas las letras con distinción están en minúsculas. De lo contrario, devuelve False.
+"""
+
+
+
+
+""" 
 Python - Formato - Cadenas
 
     F-Strings
