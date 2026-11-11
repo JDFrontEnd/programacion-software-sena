@@ -487,6 +487,13 @@ is_all_upper = my_str.isupper()
 islower(): Devuelve True si la cadena contiene al menos un carácter con distinción de mayúsculas y todas las letras con distinción están en minúsculas. De lo contrario, devuelve False.
 """
 
+""" 
+title(): Devuelve una nueva cadena con la primera letra de cada palabra en mayúsculas y las letras restantes en minúsculas.
+"""
+my_str = 'hello world'
+
+title_case_my_str = my_str.title()
+# print(title_case_my_str)  # Hello World
 
 
 
