@@ -78,7 +78,8 @@ elif nota >= 3.0 and nota <= 3.4:
     print(f"La nota de {NombreEstudiante}({nota}) esta suave, hay que mejorar pero queda aprobado =|")
 elif nota < 3.0 and nota > 0.0:
     print(f"{NombreEstudiante} ¡PAILAS! Reprobado la nota ({nota}) es mala, piense porque esta aqui =( mal, mal, mal.. perdio hasta la pecueca mijo, busque que hacer") 
-
+else: 
+    print("¡Nota invalidad! solo se admiten notas desde 0.0 hasta 5.0")
   
   
   
@@ -152,7 +153,7 @@ elif operacionC1[1] == "/":
 """ 
 Ejercicio 8: Calculadora con división segura (if anidado) 
 
-Enunciado: Mejora el ejercicio anterior: si el usuario elige la división, verifica con un if anidado que el segundo número no sea 0 (no se puede dividir entre cero). 
+Enunciado: Mejora el ejercicio anterior: si el usuario elige la di visión, verifica con un if anidado que el segundo número no sea 0 (no se puede dividir entre cero). 
 """
 print("\n=================================================================\n\t\t\tCALCULADORA\n=================================================================")
 operacionC2 = input("Ingrese una operacion matematica, formato(2 + 4): ").strip().split()
