@@ -1,0 +1,640 @@
+<title>Bases de Datos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one-screen deck; each slide is a "schema sheet" with a mono header strip (table name + row count), content on a faint grid. */
+:root{
+  --bg:#eef2f5; --surface:#ffffff; --ink:#14232f; --muted:#5a6b78; --line:#cdd7df;
+  --accent:#1f5f8b; --accent-soft:#dbe8f2; --key:#b86a12; --key-soft:#f6e7d2;
+  --ok:#2f7a4f; --bad:#b03a3a;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1720; --surface:#16212c; --ink:#e3ebf1; --muted:#93a4b2; --line:#2a3946;
+  --accent:#6fb0de; --accent-soft:#1c3346; --key:#e5a250; --key-soft:#3a2a15;
+  --ok:#6cc08f; --bad:#e57b7b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1720; --surface:#16212c; --ink:#e3ebf1; --muted:#93a4b2; --line:#2a3946;
+  --accent:#6fb0de; --accent-soft:#1c3346; --key:#e5a250; --key-soft:#3a2a15;
+  --ok:#6cc08f; --bad:#e57b7b; color-scheme:dark}
+
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:18px;line-height:1.55;overflow:hidden}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--key);outline-offset:2px;border-radius:4px}
+a{color:var(--accent)}
+code,.mono{font-family:var(--f-mono)}
+
+.deck{position:relative;height:100%;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:13px;color:var(--muted);background:var(--surface)}
+.topbar .db{color:var(--accent);font-weight:600}
+.topbar .sp{flex:1}
+.progress{height:3px;background:var(--line)}
+.progress i{display:block;height:100%;background:var(--accent);width:0;transition:width .4s ease}
+.stage{position:relative;flex:1;min-height:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:32px 32px;background-position:-1px -1px}
+.stage::before{content:"";position:absolute;inset:0;background:var(--bg);opacity:.86;pointer-events:none}
+.slide{position:absolute;inset:0;overflow-y:auto;padding-block:32px 96px;padding-inline:max(16px,5vw);
+  opacity:0;visibility:hidden;transform:translateX(30px);transition:opacity .45s ease,transform .45s ease,visibility .45s}
+.slide.on{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-30px)}
+.inner{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.eyebrow{font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--key)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
+h2{font-size:clamp(30px,4.4vw,50px);font-weight:800;letter-spacing:-.01em}
+h3{font-size:22px;font-weight:700}
+p{margin:0;max-width:65ch}
+.lead{font-size:clamp(18px,2vw,22px);color:var(--muted)}
+.added{display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:99px;padding:1px 8px;vertical-align:middle;margin-left:8px}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.grid2>*,.grid3>*{min-width:0}
+
+/* controls */
+.nav{position:absolute;right:20px;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;z-index:5}
+.nav button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--surface);font-size:20px;display:grid;place-items:center}
+.nav button:hover{border-color:var(--accent);color:var(--accent)}
+.dots{position:absolute;left:20px;bottom:calc(30px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 170px);z-index:5}
+.dots button{width:10px;height:10px;border-radius:50%;border:none;background:var(--line);padding:0}
+.dots button.on{background:var(--accent);width:26px;border-radius:6px}
+.iconbtn{border:1px solid var(--line);background:transparent;border-radius:6px;padding:3px 10px;font-family:var(--f-mono);font-size:12px}
+.iconbtn:hover{border-color:var(--accent)}
+
+/* chips/tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:7px 16px;font-size:16px}
+.tab[aria-selected="true"],.tab.on{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+
+/* cover */
+.cover{min-height:100%;display:grid;align-content:center;gap:26px}
+.cover h1{font-size:clamp(54px,11vw,140px);font-weight:800;letter-spacing:-.03em;line-height:.92}
+.cover h1 span{color:var(--accent)}
+.prompt{font-family:var(--f-mono);font-size:clamp(14px,1.8vw,18px);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 18px;max-width:640px}
+.prompt .c{color:var(--key)}
+.caret{display:inline-block;width:.6em;height:1.1em;background:var(--accent);vertical-align:-3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hint{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+kbd{font-family:var(--f-mono);font-size:12px;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 6px;background:var(--surface)}
+
+/* definition slide */
+.def{font-family:var(--f-display);font-size:clamp(22px,2.8vw,32px);font-weight:500;line-height:1.3;max-width:30ch}
+.def mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:3px}
+.verbs{display:flex;gap:10px;flex-wrap:wrap}
+.verb{flex:1 1 160px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:14px;text-align:left}
+.verb b{display:block;font-family:var(--f-mono);color:var(--accent);font-size:15px}
+.verb span{color:var(--muted);font-size:15px}
+.verb.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.minitable{width:100%;border-collapse:collapse;font-family:var(--f-mono);font-size:14px}
+.minitable th,.minitable td{border-bottom:1px solid var(--line);padding:7px 10px;text-align:left}
+.minitable th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.minitable tr.flash td{animation:flash 1.2s ease}
+.minitable tr.del td{text-decoration:line-through;color:var(--bad)}
+@keyframes flash{0%{background:var(--key-soft)}100%{background:transparent}}
+.scroll{overflow-x:auto}
+
+/* switch */
+.switch{display:inline-flex;border:1px solid var(--line);border-radius:99px;background:var(--surface);padding:4px}
+.switch button{border:none;background:none;padding:8px 18px;border-radius:99px;font-weight:600}
+.switch button.on{background:var(--accent);color:var(--surface)}
+.ops{display:flex;gap:10px;flex-wrap:wrap}
+.op{font-family:var(--f-mono);font-size:14px;padding:8px 14px;border-radius:6px;border:1px solid var(--line);background:var(--surface);transition:all .3s}
+.op.no{opacity:.4;text-decoration:line-through}
+.op.yes{border-color:var(--ok);color:var(--ok)}
+
+/* diagrams */
+svg text{font-family:var(--f-mono);fill:var(--ink)}
+.dg{width:100%;max-width:560px;height:auto}
+.node{fill:var(--surface);stroke:var(--accent);stroke-width:2}
+.node.root{fill:var(--accent-soft)}
+.edge{stroke:var(--muted);stroke-width:2;fill:none}
+.dg .flow{stroke:var(--key);stroke-width:3;stroke-dasharray:6 8;animation:dash 1s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-28}}
+
+/* sql console */
+.console{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:16px}
+@media (max-width:760px){.console{grid-template-columns:1fr}}
+.qlist{display:flex;flex-direction:column;gap:8px}
+.q{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px 12px;text-align:left;font-size:15px}
+.q.on{border-color:var(--accent);background:var(--accent-soft)}
+.sql{font-family:var(--f-mono);font-size:14px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;padding:12px 14px;white-space:pre-wrap;word-break:break-word}
+.sql .k{color:var(--accent);font-weight:600}.sql .s{color:var(--key)}
+.meta{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+
+/* types game */
+.typecard{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:18px;text-align:left;display:flex;flex-direction:column;gap:6px}
+.typecard.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.typecard .big{font-family:var(--f-mono);font-size:28px;color:var(--accent)}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:13px;background:var(--accent-soft);color:var(--ink);border-radius:4px;padding:1px 7px;margin:2px 4px 2px 0}
+.game{display:flex;flex-direction:column;gap:12px}
+.val{font-family:var(--f-mono);font-size:26px;padding:14px;border:1px dashed var(--accent);border-radius:8px;text-align:center}
+.answers{display:flex;gap:8px;flex-wrap:wrap}
+.answers button{flex:1 1 120px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px}
+.answers button.right{border-color:var(--ok);color:var(--ok);font-weight:600}
+.answers button.wrong{border-color:var(--bad);color:var(--bad)}
+
+/* sgbd */
+.db-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.dbc{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:16px;text-align:left;display:flex;flex-direction:column;gap:4px;transition:opacity .3s,transform .3s}
+.dbc b{font-family:var(--f-display);font-size:20px}
+.dbc .lic{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.dbc .lic.c{color:var(--key)}.dbc .lic.l{color:var(--ok)}
+.dbc.dim{opacity:.25;transform:scale(.97)}
+.dbc.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.detail{min-height:110px}
+
+/* accordion */
+.acc{display:flex;flex-direction:column;gap:10px}
+.acc details{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.acc summary{cursor:pointer;padding:14px 18px;font-family:var(--f-display);font-weight:700;font-size:20px;display:flex;justify-content:space-between;gap:10px;list-style:none}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"+";font-family:var(--f-mono);color:var(--accent)}
+.acc details[open] summary::after{content:"−"}
+.acc .body{padding:0 18px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.acc .body>*{min-width:0}
+
+/* layers */
+.layers{display:flex;flex-direction:column;gap:8px}
+.layer{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.layer.mid{border:2px solid var(--accent);background:var(--accent-soft)}
+.arrow{text-align:center;color:var(--key);font-family:var(--f-mono);font-size:14px}
+.fn{display:flex;flex-direction:column;gap:4px}
+.fn b{font-family:var(--f-mono);font-size:14px;color:var(--accent)}
+
+/* er */
+.er{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+@media (max-width:760px){.er{grid-template-columns:1fr}}
+.ent{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-family:var(--f-mono);font-size:14px}
+.ent h4{margin:0;padding:8px 12px;background:var(--accent);color:var(--surface);font-size:14px}
+.ent div{padding:6px 12px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;transition:background .2s}
+.ent div em{font-style:normal;font-size:11px;color:var(--muted)}
+.ent div.pk em{color:var(--key);font-weight:600}
+.ent div.hl{background:var(--key-soft)}
+
+/* acid */
+.acid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:700px){.acid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.acid button{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:16px;text-align:left}
+.acid button .L{font-family:var(--f-display);font-weight:800;font-size:56px;color:var(--accent);line-height:1}
+.acid button.on{border-color:var(--accent);background:var(--accent-soft)}
+
+/* quiz */
+.quiz{display:flex;flex-direction:column;gap:14px}
+.qhead{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:12px 14px;text-align:left}
+.opts button.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,var(--surface))}
+.opts button.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--surface))}
+.fb{color:var(--muted);font-size:16px;min-height:1.5em}
+.primary{background:var(--accent);color:var(--surface);border:none;border-radius:8px;padding:10px 18px;font-weight:600;align-self:flex-start}
+.score{font-family:var(--f-display);font-size:64px;font-weight:800;color:var(--accent)}
+.refs li{margin-bottom:10px;word-break:break-word}
+
+@media (max-width:600px){body{font-size:16px}.topbar .hide-s{display:none}.slide{padding-block:22px 96px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="deck" id="deck">
+  <div class="topbar">
+    <span class="db">bd_contextualizacion</span><span class="hide-s">›</span><span class="hide-s" id="tname">portada</span>
+    <span class="sp"></span>
+    <span id="count" class="mono">01 / 15</span>
+    <button class="iconbtn" id="fs" title="Pantalla completa (F)">⛶</button>
+  </div>
+  <div class="progress"><i id="bar"></i></div>
+  <div class="stage" id="stage">
+
+  <!-- 1 -->
+  <section class="slide" data-name="portada">
+    <div class="inner cover">
+      <div class="eyebrow">Contextualización</div>
+      <h1>Base de<br><span>Datos</span></h1>
+      <div class="prompt"><span class="c">mysql&gt;</span> <span id="typed"></span><span class="caret"></span></div>
+      <p class="lead">Qué es una base de datos, cómo se clasifica, qué modelos existen, qué tipos de datos guarda y qué programas la administran.</p>
+      <p class="hint">Avanza con <kbd>→</kbd> <kbd>Espacio</kbd> o deslizando. Retrocede con <kbd>←</kbd>.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide" data-name="que_es">
+    <div class="inner">
+      <div class="eyebrow">¿Qué es una base de datos?</div>
+      <h2>Una colección organizada de datos</h2>
+      <p class="def">Un sistema electrónico que permite que los datos sean fácilmente <mark>accesibles</mark>, <mark>manipulados</mark> y <mark>actualizados</mark>.</p>
+      <p class="lead">Prueba las cuatro operaciones básicas (CRUD) sobre esta pequeña tabla:</p>
+      <div class="verbs" id="crud">
+        <button class="verb" data-op="c"><b>INSERT</b><span>Crear un registro</span></button>
+        <button class="verb" data-op="r"><b>SELECT</b><span>Leer / consultar</span></button>
+        <button class="verb" data-op="u"><b>UPDATE</b><span>Actualizar un dato</span></button>
+        <button class="verb" data-op="d"><b>DELETE</b><span>Borrar un registro</span></button>
+      </div>
+      <div class="grid2">
+        <div class="panel scroll"><table class="minitable" id="crudT"><thead><tr><th>id</th><th>estudiante</th><th>edad</th></tr></thead><tbody></tbody></table></div>
+        <div class="sql" id="crudSQL">-- Pulsa una operación para ver la instrucción SQL</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide" data-name="clasificacion">
+    <div class="inner">
+      <div class="eyebrow">Clasificación según la variabilidad de los datos</div>
+      <h2>Estáticas o dinámicas</h2>
+      <div class="switch" id="sw"><button class="on" data-k="e">Estáticas</button><button data-k="d">Dinámicas</button></div>
+      <div class="grid2">
+        <div class="panel" id="swText"></div>
+        <div class="panel" style="display:flex;flex-direction:column;gap:12px">
+          <span class="meta">OPERACIONES PERMITIDAS</span>
+          <div class="ops" id="ops"><span class="op" data-o="r">SELECT</span><span class="op" data-o="w">INSERT</span><span class="op" data-o="w">UPDATE</span><span class="op" data-o="w">DELETE</span></div>
+          <span class="meta">EJEMPLOS</span>
+          <div id="swEx"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide" data-name="modelos_admin">
+    <div class="inner">
+      <div class="eyebrow">Clasificación según el modelo de administración</div>
+      <h2>Jerárquicas, de red y transaccionales</h2>
+      <div class="tabs" role="tablist" id="mTabs">
+        <button class="tab" role="tab" aria-selected="true" data-m="j">Jerárquica</button>
+        <button class="tab" role="tab" aria-selected="false" data-m="r">De red</button>
+        <button class="tab" role="tab" aria-selected="false" data-m="t">Transaccional</button>
+      </div>
+      <div class="grid2">
+        <div class="panel" id="mText"></div>
+        <div class="panel" style="display:grid;place-items:center" id="mSvg"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide" data-name="ejemplo_clases">
+    <div class="inner">
+      <div class="eyebrow">Ejemplo · tabla <code>clases</code></div>
+      <h2>Información de clases</h2>
+      <p class="lead">Elige una consulta y mira cómo cambia el resultado. Las filas después de las cuatro originales son ejemplos añadidos para que las consultas tengan más datos.</p>
+      <div class="console">
+        <div class="qlist" id="qlist"></div>
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+          <div class="sql" id="qsql"></div>
+          <div class="panel scroll" style="padding:8px 12px"><table class="minitable" id="qres"></table></div>
+          <span class="meta" id="qmeta"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide" data-name="tipos_datos">
+    <div class="inner">
+      <div class="eyebrow">Tipos de datos</div>
+      <h2>Los hechos que se registran</h2>
+      <p class="lead">Los datos son los objetos sobre los que opera un computador. Los tipos básicos son numéricos, lógicos y alfanuméricos; en SQL también se usan mucho las fechas.</p>
+      <div class="grid3" id="types"></div>
+      <div class="panel game">
+        <span class="meta">MINIJUEGO · ¿QUÉ TIPO DE DATO ES?</span>
+        <div class="val" id="gVal"></div>
+        <div class="answers" id="gAns"></div>
+        <div class="fb" id="gFb"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide" data-name="sgbd_productos">
+    <div class="inner">
+      <div class="eyebrow">Gestión de bases de datos</div>
+      <h2>Sistemas comerciales y libres</h2>
+      <div class="tabs" id="dbf">
+        <button class="tab on" data-f="all">Todos</button>
+        <button class="tab" data-f="c">Comerciales</button>
+        <button class="tab" data-f="l">Libres (open source)</button>
+      </div>
+      <div class="db-grid" id="dbs"></div>
+      <div class="panel detail" id="dbd"><span class="meta">Pulsa un sistema para ver sus datos.</span></div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide" data-name="modelos_datos">
+    <div class="inner">
+      <div class="eyebrow">Modelos de datos</div>
+      <h2>Cinco formas de describir los datos</h2>
+      <div class="acc" id="acc"></div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide" data-name="sgbd">
+    <div class="inner">
+      <div class="eyebrow">Gestores de base de datos</div>
+      <h2>¿Qué es un SGBD (DBMS)?</h2>
+      <p class="lead">Un sistema gestor de base de datos es un conjunto de programas, invisibles para el usuario final, con el que se administra y gestiona la información de una base de datos.</p>
+      <div class="grid2">
+        <div class="layers">
+          <div class="layer"><b>Usuario final</b><span class="meta">usa una app o página web</span></div>
+          <div class="arrow">↓ pide datos</div>
+          <div class="layer"><b>Aplicación</b><span class="meta">envía consultas SQL</span></div>
+          <div class="arrow">↓ SELECT · INSERT · UPDATE</div>
+          <div class="layer mid"><b>SGBD</b><span class="meta">valida, optimiza, protege</span></div>
+          <div class="arrow">↓ lee y escribe</div>
+          <div class="layer"><b>Archivos de datos</b><span class="meta">disco / almacenamiento</span></div>
+        </div>
+        <div class="panel" style="display:flex;flex-direction:column;gap:14px">
+          <h3>Funciones del SGBD <span class="added">ampliado</span></h3>
+          <div class="fn"><b>Definir datos</b><span>Crear tablas, columnas y restricciones (DDL).</span></div>
+          <div class="fn"><b>Manipular datos</b><span>Consultar, insertar, modificar y borrar (DML).</span></div>
+          <div class="fn"><b>Seguridad</b><span>Usuarios, contraseñas y permisos (DCL).</span></div>
+          <div class="fn"><b>Integridad</b><span>Reglas que evitan datos inválidos o duplicados.</span></div>
+          <div class="fn"><b>Concurrencia</b><span>Muchos usuarios a la vez sin conflictos.</span></div>
+          <div class="fn"><b>Respaldo y recuperación</b><span>Copias de seguridad y restauración ante fallos.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide" data-name="sql">
+    <div class="inner">
+      <div class="eyebrow">El lenguaje SQL <span class="added">nuevo</span></div>
+      <h2>Structured Query Language</h2>
+      <p class="lead">SQL es el lenguaje estándar para hablar con las bases de datos relacionales. Sus instrucciones se agrupan en cuatro familias.</p>
+      <div class="tabs" id="sqlTabs"></div>
+      <div class="grid2">
+        <div class="panel" id="sqlDesc"></div>
+        <div class="sql" id="sqlCode"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="slide" data-name="claves">
+    <div class="inner">
+      <div class="eyebrow">Claves y relaciones <span class="added">nuevo</span></div>
+      <h2>Cómo se conectan las tablas</h2>
+      <p class="lead">La <b>clave primaria (PK)</b> identifica cada fila sin repetirse. La <b>clave foránea (FK)</b> apunta a la PK de otra tabla. Pasa el cursor o toca un campo para ver la relación.</p>
+      <div class="er">
+        <div class="ent"><h4>estudiantes</h4><div class="pk" data-l="e">id_estudiante <em>PK</em></div><div>nombre <em>VARCHAR</em></div><div>carrera <em>VARCHAR</em></div></div>
+        <div class="ent"><h4>matriculas</h4><div class="pk">id_matricula <em>PK</em></div><div data-l="e">id_estudiante <em>FK</em></div><div data-l="c">id_clase <em>FK</em></div><div>nota <em>DECIMAL</em></div></div>
+        <div class="ent"><h4>clases</h4><div class="pk" data-l="c">id_clase <em>PK</em></div><div>clase <em>VARCHAR</em></div><div>semestre <em>INT</em></div></div>
+      </div>
+      <p class="fb" id="erFb">Un estudiante puede tener muchas matrículas y una clase puede tener muchos estudiantes: relación <b>muchos a muchos</b> resuelta con una tabla intermedia.</p>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="slide" data-name="acid">
+    <div class="inner">
+      <div class="eyebrow">Transacciones confiables <span class="added">nuevo</span></div>
+      <h2>Las propiedades ACID</h2>
+      <p class="lead">Una transacción agrupa varias operaciones que deben ejecutarse como una sola. Ejemplo: transferir $100.000 de la cuenta A a la cuenta B.</p>
+      <div class="acid" id="acid"></div>
+      <div class="panel" id="acidD"></div>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="slide" data-name="cuestionario">
+    <div class="inner">
+      <div class="eyebrow">Repaso</div>
+      <h2>Pon a prueba lo aprendido</h2>
+      <div class="panel quiz" id="quiz"></div>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section class="slide" data-name="actividad">
+    <div class="inner">
+      <div class="eyebrow">Actividad</div>
+      <h2>Estudiar y realizar el cuestionario</h2>
+      <div class="panel" style="display:flex;flex-direction:column;gap:12px">
+        <p>Ingresa a la lección y resuelve el cuestionario propuesto:</p>
+        <p><a href="http://contenidos.sucerman.com/nivel2/web1/unidad1/leccion1.html" target="_blank" rel="noopener">contenidos.sucerman.com/nivel2/web1/unidad1/leccion1.html</a></p>
+        <p class="meta">Reto extra: diseña en papel las tablas de una biblioteca (libros, socios, préstamos) e identifica sus claves primarias y foráneas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section class="slide" data-name="cibergrafia">
+    <div class="inner">
+      <div class="eyebrow">Cibergrafía</div>
+      <h2>Fuentes</h2>
+      <ul class="refs panel" style="padding-left:36px">
+        <li>Concepto.de. <em>Base de datos.</em> <a href="https://concepto.de/base-de-datos/" target="_blank" rel="noopener">concepto.de/base-de-datos</a></li>
+        <li>Sucerman. <em>Nivel 2 · Web 1 · Unidad 1 · Lección 1.</em> <a href="http://contenidos.sucerman.com/nivel2/web1/unidad1/leccion1.html" target="_blank" rel="noopener">contenidos.sucerman.com</a></li>
+        <li>Documentación oficial de <a href="https://www.postgresql.org/docs/" target="_blank" rel="noopener">PostgreSQL</a>, <a href="https://dev.mysql.com/doc/" target="_blank" rel="noopener">MySQL</a> y <a href="https://www.sqlite.org/docs.html" target="_blank" rel="noopener">SQLite</a>.</li>
+      </ul>
+      <p class="hint">Fin de la presentación · pulsa <kbd>Inicio</kbd> para volver a empezar.</p>
+    </div>
+  </section>
+
+  </div>
+  <div class="dots" id="dots"></div>
+  <div class="nav"><button id="prev" aria-label="Diapositiva anterior">←</button><button id="next" aria-label="Diapositiva siguiente">→</button></div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function hl(sql){return esc(sql).replace(/'[^']*'/g,m=>`<span class="s">${m}</span>`)
+ .replace(/\b(SELECT|FROM|WHERE|ORDER BY|GROUP BY|COUNT|INSERT INTO|VALUES|UPDATE|SET|DELETE|CREATE TABLE|ALTER TABLE|ADD|DROP TABLE|PRIMARY KEY|FOREIGN KEY|REFERENCES|GRANT|REVOKE|ON|TO|BEGIN|COMMIT|ROLLBACK|AND|DESC|ASC|AS|INT|VARCHAR|DECIMAL|DATE|BOOLEAN|NOT NULL)\b/g,'<span class="k">$1</span>');}
+
+/* ---------- navigation ---------- */
+const slides=$$('.slide'); let cur=0;
+const dots=$('#dots');
+slides.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Ir a diapositiva '+(i+1));b.onclick=()=>go(i);dots.appendChild(b);});
+function go(i){
+  i=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach((s,k)=>{s.classList.toggle('on',k===i);s.classList.toggle('prev',k<i);});
+  cur=i;
+  $$('#dots button').forEach((b,k)=>b.classList.toggle('on',k===i));
+  $('#count').textContent=String(i+1).padStart(2,'0')+' / '+slides.length;
+  $('#tname').textContent=slides[i].dataset.name;
+  $('#bar').style.width=((i+1)/slides.length*100)+'%';
+  try{history.replaceState(null,'','#s'+(i+1))}catch(e){}
+}
+$('#prev').onclick=()=>go(cur-1); $('#next').onclick=()=>go(cur+1);
+document.addEventListener('keydown',e=>{
+  if(e.target.closest('input,textarea'))return;
+  if(['ArrowRight','PageDown'].includes(e.key)||(e.key===' '&&!e.target.closest('button'))){e.preventDefault();go(cur+1)}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
+  else if(e.key==='Home')go(0); else if(e.key==='End')go(slides.length-1);
+  else if(e.key==='f'||e.key==='F')toggleFs();
+});
+let tx=null,ty=null;
+$('#stage').addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+$('#stage').addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)go(cur+(dx<0?1:-1));tx=null},{passive:true});
+function toggleFs(){try{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen().catch(()=>{})}catch(e){}}
+$('#fs').onclick=toggleFs;
+const m=location.hash.match(/^#s(\d+)$/); go(m?+m[1]-1:0);
+
+/* ---------- cover typing ---------- */
+(function(){const q="SELECT * FROM conocimiento WHERE tema = 'bases de datos';";let i=0;const el=$('#typed');
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=q;return}
+ (function t(){el.textContent=q.slice(0,++i);if(i<q.length)setTimeout(t,45)})();})();
+
+/* ---------- CRUD ---------- */
+let rows=[{id:1,n:'Ana Gómez',e:19},{id:2,n:'Luis Pérez',e:22},{id:3,n:'Sara Ríos',e:20}];
+let nextId=4; const names=['Camilo Díaz','Valentina Ruiz','Andrés Mora','Juliana Toro','Mateo Cruz'];
+function drawCrud(flash,del){$('#crudT tbody').innerHTML=rows.map(r=>`<tr class="${r.id===flash?'flash':''}${r.id===del?' del':''}"><td>${r.id}</td><td>${esc(r.n)}</td><td>${r.e}</td></tr>`).join('')||'<tr><td colspan="3" class="meta">Tabla vacía · pulsa INSERT</td></tr>'}
+drawCrud();
+$$('#crud .verb').forEach(b=>b.onclick=()=>{
+  $$('#crud .verb').forEach(x=>x.classList.toggle('on',x===b)); let sql='';
+  const op=b.dataset.op;
+  if(op==='c'){const r={id:nextId++,n:names[(nextId)%names.length],e:18+Math.floor(Math.random()*8)};rows.push(r);sql=`INSERT INTO estudiantes (id, nombre, edad)\nVALUES (${r.id}, '${r.n}', ${r.e});`;drawCrud(r.id)}
+  if(op==='r'){sql=`SELECT * FROM estudiantes;\n-- ${rows.length} fila(s) devueltas`;drawCrud();$$('#crudT tbody tr').forEach(t=>t.classList.add('flash'))}
+  if(op==='u'){if(!rows.length){sql='-- No hay filas para actualizar';}else{const r=rows[Math.floor(Math.random()*rows.length)];r.e++;sql=`UPDATE estudiantes\nSET edad = ${r.e}\nWHERE id = ${r.id};`;drawCrud(r.id)}}
+  if(op==='d'){if(!rows.length){sql='-- No hay filas para borrar';}else{const r=rows[rows.length-1];sql=`DELETE FROM estudiantes\nWHERE id = ${r.id};`;drawCrud(null,r.id);setTimeout(()=>{rows=rows.filter(x=>x!==r);drawCrud()},700)}}
+  $('#crudSQL').innerHTML=hl(sql);
+});
+
+/* ---------- estáticas / dinámicas ---------- */
+const SW={e:{t:`<h3>Bases de datos estáticas</h3><p>Son bases de datos <b>de solo lectura</b>. Guardan datos históricos que luego se usan para estudiar el comportamiento de un conjunto de datos a través del tiempo, hacer proyecciones y tomar decisiones.</p>`,ex:'Censos de población, registros históricos de ventas, almacenes de datos (data warehouse) para inteligencia de negocios.'},
+ d:{t:`<h3>Bases de datos dinámicas</h3><p>La información almacenada <b>se modifica con el tiempo</b>. Además de consultar, permiten actualizar, borrar y editar datos.</p>`,ex:'Inventario de una tienda, cuentas bancarias, notas de estudiantes, reservas de vuelos.'}};
+function sw(k){$$('#sw button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));$('#swText').innerHTML=SW[k].t;$('#swEx').textContent=SW[k].ex;
+ $$('#ops .op').forEach(o=>{const ok=o.dataset.o==='r'||k==='d';o.classList.toggle('yes',ok);o.classList.toggle('no',!ok)})}
+$$('#sw button').forEach(b=>b.onclick=()=>sw(b.dataset.k)); sw('e');
+
+/* ---------- modelos admin ---------- */
+function svgTree(){return `<svg class="dg" viewBox="0 0 400 230" role="img" aria-label="Árbol jerárquico">
+ <path class="edge" d="M200 45 L100 110 M200 45 L300 110 M100 110 L50 180 M100 110 L150 180 M300 110 L300 180"/>
+ <rect class="node root" x="150" y="20" width="100" height="40" rx="6"/><text x="200" y="45" text-anchor="middle" font-size="13">Universidad</text>
+ <rect class="node" x="55" y="95" width="90" height="34" rx="6"/><text x="100" y="117" text-anchor="middle" font-size="12">Medicina</text>
+ <rect class="node" x="255" y="95" width="90" height="34" rx="6"/><text x="300" y="117" text-anchor="middle" font-size="12">Derecho</text>
+ <rect class="node" x="10" y="165" width="80" height="32" rx="6"/><text x="50" y="186" text-anchor="middle" font-size="11">Biología</text>
+ <rect class="node" x="110" y="165" width="80" height="32" rx="6"/><text x="150" y="186" text-anchor="middle" font-size="11">Álgebra I</text>
+ <rect class="node" x="255" y="165" width="90" height="32" rx="6"/><text x="300" y="186" text-anchor="middle" font-size="11">Deontología</text>
+ <text x="200" y="222" text-anchor="middle" font-size="11" style="fill:var(--muted)">cada hijo tiene un solo padre</text></svg>`}
+function svgNet(){return `<svg class="dg" viewBox="0 0 400 230" role="img" aria-label="Red">
+ <path class="edge" d="M90 50 L200 150 M310 50 L200 150 M90 50 L90 150 M310 50 L310 150 M90 150 L200 150 M200 150 L310 150"/>
+ <rect class="node root" x="40" y="30" width="100" height="38" rx="6"/><text x="90" y="54" text-anchor="middle" font-size="12">Profesor A</text>
+ <rect class="node root" x="260" y="30" width="100" height="38" rx="6"/><text x="310" y="54" text-anchor="middle" font-size="12">Profesor B</text>
+ <rect class="node" x="40" y="132" width="100" height="36" rx="6"/><text x="90" y="155" text-anchor="middle" font-size="12">Curso 1</text>
+ <rect class="node" x="150" y="132" width="100" height="36" rx="6" style="stroke:var(--key)"/><text x="200" y="155" text-anchor="middle" font-size="12">Curso 2</text>
+ <rect class="node" x="260" y="132" width="100" height="36" rx="6"/><text x="310" y="155" text-anchor="middle" font-size="12">Curso 3</text>
+ <text x="200" y="210" text-anchor="middle" font-size="11" style="fill:var(--muted)">Curso 2 tiene dos padres</text></svg>`}
+function svgTx(){return `<svg class="dg" viewBox="0 0 400 200" role="img" aria-label="Transacciones">
+ <rect class="node" x="10" y="70" width="110" height="56" rx="8"/><text x="65" y="103" text-anchor="middle" font-size="12">Cajero / POS</text>
+ <rect class="node root" x="280" y="70" width="110" height="56" rx="8"/><text x="335" y="103" text-anchor="middle" font-size="12">Base de datos</text>
+ <path class="flow" d="M125 88 L275 88"/><path class="flow" d="M275 110 L125 110" style="animation-direction:reverse"/>
+ <text x="200" y="78" text-anchor="middle" font-size="11">envío</text><text x="200" y="132" text-anchor="middle" font-size="11">confirmación</text>
+ <text x="200" y="178" text-anchor="middle" font-size="11" style="fill:var(--muted)">miles de operaciones por segundo</text></svg>`}
+const MT={j:[`<h3>Jerárquica</h3><p>Los datos se organizan en forma de <b>árbol invertido</b>: un nodo raíz del que se desprenden ramas. Cada nodo hijo tiene un único padre.</p><p class="meta" style="margin-top:10px">Uso típico: sistemas de archivos, IBM IMS.</p>`,svgTree],
+ r:[`<h3>De red</h3><p>Parecido al jerárquico, pero un nodo <b>puede tener varios padres</b>. Esto permite representar relaciones más complejas que un árbol.</p><p class="meta" style="margin-top:10px">Uso típico: sistemas antiguos tipo CODASYL.</p>`,svgNet],
+ t:[`<h3>Transaccional</h3><p>Su finalidad es <b>enviar y recibir datos a gran velocidad</b>. Son menos comunes y están dirigidas a recolectar y recuperar datos lo más rápido posible.</p><p class="meta" style="margin-top:10px">Uso típico: cajeros automáticos, pagos, ventas en línea.</p>`,svgTx]};
+function mt(k){$$('#mTabs .tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.m===k));$('#mText').innerHTML=MT[k][0];$('#mSvg').innerHTML=MT[k][1]()}
+$$('#mTabs .tab').forEach(b=>b.onclick=()=>mt(b.dataset.m)); mt('j');
+
+/* ---------- consultas sobre clases ---------- */
+const CL=[['Algebra I','Medicina',1],['Algebra II','Matemática',1],['Biología','Medicina',1],['Deontología','Derecho',1],
+ ['Anatomía','Medicina',2],['Cálculo I','Física',2],['Derecho Civil','Derecho',3],['Estadística','Matemática',3],['Seminario III','Física',5]];
+const Q=[
+ {l:'Ver toda la tabla',s:"SELECT * FROM clases;",f:()=>({h:['clase','carrera','semestre'],r:CL})},
+ {l:'Solo Medicina',s:"SELECT * FROM clases\nWHERE carrera = 'Medicina';",f:()=>({h:['clase','carrera','semestre'],r:CL.filter(x=>x[1]==='Medicina')})},
+ {l:'Clases de primer semestre',s:"SELECT clase, carrera FROM clases\nWHERE semestre = 1;",f:()=>({h:['clase','carrera'],r:CL.filter(x=>x[2]===1).map(x=>[x[0],x[1]])})},
+ {l:'Contar clases por carrera',s:"SELECT carrera, COUNT(*) AS total\nFROM clases\nGROUP BY carrera;",f:()=>{const c={};CL.forEach(x=>c[x[1]]=(c[x[1]]||0)+1);return{h:['carrera','total'],r:Object.entries(c)}}},
+ {l:'Ordenar por semestre (mayor primero)',s:"SELECT * FROM clases\nORDER BY semestre DESC;",f:()=>({h:['clase','carrera','semestre'],r:[...CL].sort((a,b)=>b[2]-a[2])})},
+];
+function runQ(i){$$('#qlist .q').forEach((b,k)=>b.classList.toggle('on',k===i));const q=Q[i],t0=performance.now(),res=q.f();
+ $('#qsql').innerHTML=hl(q.s);
+ $('#qres').innerHTML=`<thead><tr>${res.h.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${res.r.map(r=>`<tr class="flash">${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+ $('#qmeta').textContent=`${res.r.length} fila(s) · ${(performance.now()-t0+0.3).toFixed(1)} ms`}
+$('#qlist').innerHTML=Q.map((q,i)=>`<button class="q" data-i="${i}">${q.l}</button>`).join('');
+$$('#qlist .q').forEach(b=>b.onclick=()=>runQ(+b.dataset.i)); runQ(0);
+
+/* ---------- tipos de datos ---------- */
+const TY=[{k:'num',n:'Numéricos',big:'42 · 3,14',d:'Cantidades con las que se puede calcular.',sql:['INT','BIGINT','DECIMAL(10,2)','FLOAT']},
+ {k:'log',n:'Lógicos',big:'TRUE / FALSE',d:'Solo dos valores posibles: verdadero o falso.',sql:['BOOLEAN','BIT']},
+ {k:'alf',n:'Alfanuméricos',big:"'Ana' · 'B-12'",d:'Letras, números y símbolos tratados como texto.',sql:['CHAR(n)','VARCHAR(n)','TEXT']},
+ {k:'fec',n:'Fecha y hora',big:'2026-10-10',d:'Momentos en el tiempo. Añadido como tipo muy usado en SQL.',sql:['DATE','TIME','DATETIME','TIMESTAMP']}];
+$('#types').innerHTML=TY.map(t=>`<div class="typecard" data-k="${t.k}"><span class="meta">${t.n.toUpperCase()}</span><span class="big">${t.big}</span><span>${t.d}</span><div>${t.sql.map(s=>`<span class="pill">${s}</span>`).join('')}</div></div>`).join('');
+const GV=[['25','num'],['FALSE','log'],["'Medicina'",'alf'],['2026-03-15','fec'],['1.75','num'],["'3001234567'",'alf'],['TRUE','log'],['14:30:00','fec'],["'CRA 45 #12-30'",'alf'],['-8','num']];
+let gi=0,gScore=0,gDone=0;
+function game(){const v=GV[gi%GV.length];$('#gVal').textContent=v[0];$('#gFb').textContent=`Aciertos: ${gScore} de ${gDone}`;
+ $('#gAns').innerHTML=TY.map(t=>`<button data-k="${t.k}">${t.n}</button>`).join('');
+ $$('#gAns button').forEach(b=>b.onclick=()=>{if($('#gAns').dataset.lock)return;$('#gAns').dataset.lock=1;gDone++;
+  const ok=b.dataset.k===v[1];if(ok)gScore++;b.classList.add(ok?'right':'wrong');$(`#gAns button[data-k="${v[1]}"]`).classList.add('right');
+  $$('#types .typecard').forEach(c=>c.classList.toggle('on',c.dataset.k===v[1]));
+  $('#gFb').textContent=(ok?'¡Correcto! ':'Era '+TY.find(t=>t.k===v[1]).n+'. ')+(v[0].startsWith("'")?'Las comillas indican texto, aunque contenga números. ':'')+`Aciertos: ${gScore} de ${gDone}`;
+  setTimeout(()=>{delete $('#gAns').dataset.lock;gi++;game()},1700)})}
+game();
+
+/* ---------- SGBD productos ---------- */
+const DB=[{n:'Oracle',c:'c',e:'Oracle Corporation',y:'1979',u:'Grandes empresas, bancos y gobiernos. Muy robusto y escalable.'},
+ {n:'IBM Db2',c:'c',e:'IBM',y:'1983',u:'Sistemas corporativos y mainframes; fuerte en banca y seguros.'},
+ {n:'Microsoft SQL Server',c:'c',e:'Microsoft',y:'1989',u:'Empresas que trabajan con Windows y .NET. Tiene edición gratuita Express.'},
+ {n:'Ingres',c:'c',e:'Universidad de Berkeley · hoy Actian',y:'década de 1970',u:'Uno de los primeros SGBD relacionales; influyó en Sybase, SQL Server y PostgreSQL.'},
+ {n:'MySQL',c:'l',e:'MySQL AB · hoy Oracle',y:'1995',u:'El más popular en la web: WordPress, tiendas en línea, aplicaciones PHP.'},
+ {n:'PostgreSQL',c:'l',e:'Comunidad global (origen en Berkeley)',y:'1996',u:'Muy completo y fiel al estándar SQL; soporta JSON y datos geográficos.'},
+ {n:'SQLite',c:'l',e:'D. Richard Hipp',y:'2000',u:'Base de datos en un solo archivo, sin servidor. Está en casi todos los celulares.'}];
+$('#dbs').innerHTML=DB.map((d,i)=>`<button class="dbc" data-i="${i}" data-c="${d.c}"><span class="lic ${d.c}">${d.c==='c'?'Comercial':'Libre'}</span><b>${d.n}</b><span class="meta">desde ${d.y}</span></button>`).join('');
+$$('#dbs .dbc').forEach(b=>b.onclick=()=>{const d=DB[b.dataset.i];$$('#dbs .dbc').forEach(x=>x.classList.toggle('on',x===b));
+ $('#dbd').innerHTML=`<h3>${d.n}</h3><p class="meta" style="margin:6px 0 8px">${d.e} · ${d.y} · ${d.c==='c'?'licencia comercial (de pago)':'código abierto (gratuito)'}</p><p>${d.u}</p>`});
+$$('#dbf .tab').forEach(b=>b.onclick=()=>{$$('#dbf .tab').forEach(x=>x.classList.toggle('on',x===b));const f=b.dataset.f;$$('#dbs .dbc').forEach(x=>x.classList.toggle('dim',f!=='all'&&x.dataset.c!==f))});
+
+/* ---------- modelos de datos ---------- */
+const MD=[['Entidad-relación','Modelo semántico que describe la estructura conceptual externa de la base de datos. Se dibuja con entidades (rectángulos), atributos y relaciones (rombos).','Estudiante —(se matricula en)— Clase'],
+ ['Relacional','Modelo basado en registros que describe los niveles externo, lógico e interno. Usa tablas (filas y columnas) para representar datos y relaciones. Es el más usado hoy.',"CREATE TABLE clases (\n  id_clase INT PRIMARY KEY,\n  clase VARCHAR(50),\n  semestre INT\n);"],
+ ['Orientado a objetos','Modelo semántico con encapsulamiento: los datos y sus métodos viven juntos en una unidad protegida, como los objetos de la programación.','Objeto Estudiante {\n  nombre, edad\n  matricular(clase)\n}'],
+ ['Objeto-relacional','Parte del modelo relacional y le agrega tipos de datos y métodos complejos (arreglos, tipos definidos por el usuario). PostgreSQL es un ejemplo.','telefonos VARCHAR(15)[]'],
+ ['Semiestructurado','Datos en nodos autodescriptivos, usando XML (eXtensible Markup Language) o JSON. No exige que todos los registros tengan los mismos campos.','<clase semestre="1">\n  <nombre>Biología</nombre>\n</clase>']];
+$('#acc').innerHTML=MD.map((m,i)=>`<details ${i===1?'open':''}><summary>${m[0]}</summary><div class="body"><p>${m[1]}</p><div class="sql">${hl(m[2])}</div></div></details>`).join('');
+$$('#acc details').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)$$('#acc details').forEach(o=>{if(o!==d)o.open=false})}));
+
+/* ---------- SQL familias ---------- */
+const SQ=[['DDL','Lenguaje de definición de datos','Crea y modifica la estructura: tablas, columnas, índices.',"CREATE TABLE estudiantes (\n  id_estudiante INT PRIMARY KEY,\n  nombre VARCHAR(80) NOT NULL,\n  carrera VARCHAR(40)\n);\n\nALTER TABLE estudiantes ADD edad INT;"],
+ ['DML','Lenguaje de manipulación de datos','Trabaja con el contenido: consultar, insertar, actualizar y borrar filas.',"INSERT INTO estudiantes VALUES (1, 'Ana', 'Medicina', 19);\n\nSELECT nombre FROM estudiantes\nWHERE carrera = 'Medicina';"],
+ ['DCL','Lenguaje de control de datos','Controla quién puede hacer qué: otorga o quita permisos.',"GRANT SELECT ON estudiantes TO profesor;\n\nREVOKE SELECT ON estudiantes FROM invitado;"],
+ ['TCL','Lenguaje de control de transacciones','Agrupa operaciones y decide si se confirman o se deshacen.',"BEGIN;\nUPDATE cuentas SET saldo = saldo - 100000 WHERE id = 'A';\nUPDATE cuentas SET saldo = saldo + 100000 WHERE id = 'B';\nCOMMIT;   -- o ROLLBACK si algo falla"]];
+$('#sqlTabs').innerHTML=SQ.map((s,i)=>`<button class="tab" data-i="${i}">${s[0]}</button>`).join('');
+function sq(i){$$('#sqlTabs .tab').forEach((b,k)=>b.classList.toggle('on',k===i));const s=SQ[i];$('#sqlDesc').innerHTML=`<h3>${s[0]} · ${s[1]}</h3><p style="margin-top:8px">${s[2]}</p>`;$('#sqlCode').innerHTML=hl(s[3])}
+$$('#sqlTabs .tab').forEach(b=>b.onclick=()=>sq(+b.dataset.i)); sq(0);
+
+/* ---------- ER highlight ---------- */
+const ERM={e:'id_estudiante une estudiantes con matriculas: cada matrícula pertenece a un estudiante existente.',c:'id_clase une clases con matriculas: no se puede matricular en una clase que no existe (integridad referencial).'};
+const erDef=$('#erFb').innerHTML;
+$$('.ent div[data-l]').forEach(d=>{const on=()=>{$$('.ent div[data-l]').forEach(x=>x.classList.toggle('hl',x.dataset.l===d.dataset.l));$('#erFb').textContent=ERM[d.dataset.l]};
+ d.addEventListener('mouseenter',on);d.addEventListener('click',on);d.addEventListener('mouseleave',()=>{$$('.ent div').forEach(x=>x.classList.remove('hl'));$('#erFb').innerHTML=erDef});});
+
+/* ---------- ACID ---------- */
+const AC=[['A','Atomicidad','Todo o nada. Si se descuenta de A pero falla el abono en B, se deshace todo.'],
+ ['C','Consistencia','La base de datos pasa de un estado válido a otro válido: el dinero total no cambia.'],
+ ['I','Aislamiento','Dos transferencias al mismo tiempo no se mezclan; cada una ve datos coherentes.'],
+ ['D','Durabilidad','Una vez confirmada (COMMIT), la transferencia sobrevive aunque se vaya la luz.']];
+$('#acid').innerHTML=AC.map((a,i)=>`<button data-i="${i}"><div class="L">${a[0]}</div><b>${a[1]}</b></button>`).join('');
+function ac(i){$$('#acid button').forEach((b,k)=>b.classList.toggle('on',k===i));$('#acidD').innerHTML=`<h3>${AC[i][1]}</h3><p style="margin-top:6px">${AC[i][2]}</p>`}
+$$('#acid button').forEach(b=>b.onclick=()=>ac(+b.dataset.i)); ac(0);
+
+/* ---------- quiz ---------- */
+const QZ=[
+ ['¿Qué es una base de datos?',['Un programa para editar textos','Una colección organizada de datos','Un tipo de red de computadores','Un lenguaje de programación'],1,'Es una colección organizada de datos, fácil de acceder, manipular y actualizar.'],
+ ['Una base de datos que solo permite consultar datos históricos es…',['Dinámica','Transaccional','Estática','De red'],2,'Las estáticas son de solo lectura y sirven para análisis histórico y proyecciones.'],
+ ['¿En qué modelo los datos forman un árbol invertido?',['Jerárquico','De red','Semiestructurado','Orientado a objetos'],0,'El jerárquico parte de una raíz y cada hijo tiene un solo padre.'],
+ ['¿Cuál de estos SGBD es libre (open source)?',['Oracle','IBM Db2','PostgreSQL','Microsoft SQL Server'],2,'PostgreSQL, MySQL y SQLite son de código abierto.'],
+ ['El valor TRUE es un dato de tipo…',['Numérico','Lógico','Alfanumérico','Fecha'],1,'Los datos lógicos solo pueden ser verdadero o falso.'],
+ ['¿Qué modelo representa los datos y relaciones en tablas?',['Entidad-relación','Relacional','Semiestructurado','Jerárquico'],1,'El modelo relacional usa tablas con filas y columnas.'],
+ ['¿Qué instrucción SQL sirve para consultar datos?',['INSERT','DELETE','SELECT','CREATE'],2,'SELECT lee datos; INSERT agrega, DELETE borra y CREATE crea estructuras.'],
+ ['¿Qué identifica de forma única cada fila de una tabla?',['La clave foránea','La clave primaria','El índice de texto','El nombre de la tabla'],1,'La clave primaria (PK) no se repite ni puede ser nula.']];
+let qi=0,qs=0;
+function quiz(){const el=$('#quiz');
+ if(qi>=QZ.length){const msg=qs===QZ.length?'¡Perfecto! Dominas el tema.':qs>=QZ.length*.6?'Buen trabajo. Repasa las preguntas que fallaste.':'Vuelve a revisar las diapositivas y repite el cuestionario.';
+  el.innerHTML=`<span class="meta">RESULTADO</span><div class="score">${qs} / ${QZ.length}</div><p>${msg}</p><button class="primary" id="qr">Repetir cuestionario</button>`;$('#qr').onclick=()=>{qi=0;qs=0;quiz()};return}
+ const q=QZ[qi];
+ el.innerHTML=`<div class="qhead"><span>PREGUNTA ${qi+1} DE ${QZ.length}</span><span>PUNTAJE ${qs}</span></div><h3>${q[0]}</h3><div class="opts">${q[1].map((o,i)=>`<button data-i="${i}">${o}</button>`).join('')}</div><p class="fb" id="qfb"></p>`;
+ $$('#quiz .opts button').forEach(b=>b.onclick=()=>{if(el.dataset.lock)return;el.dataset.lock=1;const ok=+b.dataset.i===q[2];if(ok)qs++;
+  b.classList.add(ok?'right':'wrong');$(`#quiz .opts button[data-i="${q[2]}"]`).classList.add('right');
+  $('#qfb').innerHTML=(ok?'<b>Correcto.</b> ':'<b>No es esa.</b> ')+q[3];
+  const n=document.createElement('button');n.className='primary';n.textContent=qi===QZ.length-1?'Ver resultado':'Siguiente pregunta';
+  n.onclick=()=>{delete el.dataset.lock;qi++;quiz()};el.appendChild(n)})}
+quiz();
+</script>
