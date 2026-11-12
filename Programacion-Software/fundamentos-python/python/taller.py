@@ -8,7 +8,7 @@ print("-------------------------------¬")
 age = int(input("cual es tu edad? "))
 print("-------------------------------¬")
 
-if age < 18:
+if age < 18 and age > 0:
     print(f"Hola, {name} eres menor de edad")
 elif age >= 18 and age <= 65:
     print(f"hola, {name} eres mayor de edad")

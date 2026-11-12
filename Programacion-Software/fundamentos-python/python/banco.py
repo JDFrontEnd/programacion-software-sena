@@ -4,6 +4,12 @@ user = {
     "saldo": 0
 }
 
+users = [
+    {"usuario":"juan", "passward":12345, "saldo":0},
+    {"usuario":"pedro", "passward":12345, "saldo":0}
+]
+
+
 # funcion login usuario
 def loginUser():
     global usuario
@@ -11,10 +17,10 @@ def loginUser():
     usuario = input("ingrese su nombre de usuario: ")
     print("-------------------------------------")
     usuario = usuario.strip()
-    if usuario != user["usuario"]:
+    if usuario != users[0].get("usuario"):
         print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
         return loginUser()
-    elif usuario == user["usuario"]:
+    elif usuario == users[0].get("usuario"):
         loginPassward()
 
 
@@ -108,24 +114,34 @@ def action():
         ActionDeposit()
     elif actionUser == "salir":
         interfaz()
+        
+def registro():
+  global getusuario
+  global getpassward
+  print("==================\n|Registro de cuenta|\n==================\n")
+  print("-----------------------------------")
+  getusuario = ("Nombre de Usuario: ").strip()
+  print("-----------------------------------")
+  getpassward = int("Ingresa una Contraseña: ")
+  print("solo valores numericos")
+  print("-----------------------------------")
+  users.append({"usuario": getusuario, "passward": getpassward, "saldo":0})
+  interfaz()
     
 
 def interfaz():
     global accoutConfirmation
-    print("\n<===============================================================================>")
-    print("\t\t\t HOLA BIENVENIDO A BANK.PY")
-    print("<===============================================================================>")
+    print("\n<===============================================================================>\n\t\t\t HOLA BIENVENIDO A BANK.PY\n<===============================================================================>")
     print("\n\t\t\t¿tienes una cuenta abierta?")
     print("\t\t  ----------------------------------------")
-    accoutConfirmation = input("\t\t\t\tsi \\ no -> ")
-    accoutConfirmation = accoutConfirmation.strip()
-    if accoutConfirmation != "si" and accoutConfirmation != "no":
+    accoutConfirmation = input("\t\t  Ingresar \\ Registrar -> ").strip().lower()
+    if accoutConfirmation != "ingresar" and accoutConfirmation != "registrar":
         print("¡Error!, copie correctamente el comando")
         return interfaz()
-    elif accoutConfirmation == "si":
+    elif accoutConfirmation == "ingresar":
         loginUser()
-    elif accoutConfirmation == "no":
-        print("si no tines cuenta crea una")
+    elif accoutConfirmation == "registrar":
+        registro()
         
 
 interfaz()
