@@ -439,12 +439,15 @@ a = " Hello, World!    "
 
 """ 
 Reemplazar la cuerda
-
     El método replace() reemplaza una cadena por otra cadena:
+    También puedes usar .replace() para eliminar caracteres no deseados. Por ejemplo, eliminar guiones de un número de teléfono:
 """
 
 a = "Hello, World!"
 #print(a.replace("H", "J"))
+phone = '456-147'
+clean = phone.replace('-', '')
+# print(clean)  # Output: 456147
 
 """ 
 Split String - Cuerda partida
@@ -460,7 +463,8 @@ my_list = ['hello', 'world']
 
 joined_my_str = ' '.join(my_list)
 # print(joined_my_str)  # hello world
-
+parts = ['apple', 'banana', 'cherry']
+joined = ' - '.join(parts)
 
 """ 
 startswith(prefix): Devuelve un booleano que indica si una cadena comienza con el prefijo especificado.
