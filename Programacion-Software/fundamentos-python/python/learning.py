@@ -96,6 +96,23 @@ y = "John"
 # print(type(y))
 
 """ 
+Habrá momentos en tu programa en los que necesites verificar que una variable en particular sea de un tipo específico antes de realizar operaciones sobre ella. Aquí es donde la función isinstance() resulta útil.
+Aquí tienes una variable de ejemplo con una cadena asignada:
+"""
+account_balance = '12'
+""" 
+Para ver si account_balance es un entero, puedes verificarlo usando la función isinstance() así:
+"""
+account_balance = '12'
+
+isinstance(account_balance, int) # False
+
+
+
+
+
+
+""" 
 Variables Python - Case-Sensitive 
     Los nombres de variables son sensibles a mayúsculas y mayúsculas.
 """
