@@ -12,11 +12,22 @@ users = [
 
 # funcion login usuario
 def loginUser():
-    global usuario
+    global usuario_input
     print("\n-------------------------------------")
-    usuario = input("ingrese su nombre de usuario: ")
+    usuario_input = input("ingrese su nombre de usuario: ")
     print("-------------------------------------")
     usuario = usuario.strip()
+    
+    confirmacion
+    
+    for confirmacion in users["usuario"]:
+        if confirmacion != usuario_input:
+            print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
+            return loginUser()
+        elif confirmacion == usuario_input:
+            confirmacion = usuario_input
+            loginPassward()
+                
     if usuario != users[0].get("usuario"):
         print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
         return loginUser()

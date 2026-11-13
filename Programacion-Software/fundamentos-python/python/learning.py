@@ -908,6 +908,12 @@ Como las listas están indexadas, las listas pueden tener elementos con el mismo
 
 frutas = ["apple", "banana", "cherry", "apple", "cherry"]
 
+
+
+frutas [1,2,3,4,5,6,7,8,9]
+
+
+
 """ 
 Longitud de la lista
 Para determinar cuántos elementos tiene una lista, utiliza la función: len()
@@ -964,12 +970,14 @@ Para cambiar el valor de un artículo específico, Consulte el número de índic
 thislist = ["apple", "banana", "cherry"]
 thislist[1] = "blackcurrant"
 
+w if 
+
 """ 
 Cambiar un rango de valores de objetos
 Para cambiar el valor de los elementos dentro de un rango específico, define una lista con los nuevos valores y consulta el rango de números de índice donde quieres insertar los nuevos valores:
 """
 thislist = ["apple", "banana", "cherry", "orange", "kiwi", "mango"]
-thislist[1:3] = ["blackcurrant", "watermelon"]
+thislist[1:2] = ["blackcurrant", "watermelon"]
 
 """ 
 Si insertas más elementos de los que reemplazas, los nuevos elementos se insertarán donde lo especificaste y los objetos restantes se moverán en consecuencia:
@@ -997,8 +1005,8 @@ El método inserta un ítem en el índice especificado:insert()
 """
 
 thislist = ["apple", "banana", "cherry"]
-thislist.insert(2, "watermelon")
-# ['apple', 'banana', 'watermelon', 'cherry']
+thislist.insert(5, "1", '2')
+# ['apple', 'banana', 'watermelon']
 
 
 """ 
@@ -1009,7 +1017,7 @@ Para añadir un elemento al final de la lista, utiliza el método:append()
 
 """
 
-thislist = ["apple", "banana", "cherry"]
+thislist = ["apple", "banana", 4]
 thislist.append("orange")
 # ['apple', 'banana', 'cherry', 'orange']
 

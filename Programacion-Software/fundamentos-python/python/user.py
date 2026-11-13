@@ -57,4 +57,15 @@ for a in frutas1[:3],frutas1[3]:
     for b in a:
       print(b) """
       
+      
 
+
+    
+nombre = 'juan'
+
+
+
+thislist = ["apple", "banana", "cherry"]
+thislist.insert(5, "1")
+print(thislist)
+# ['apple', 'banana', 'watermelon']
