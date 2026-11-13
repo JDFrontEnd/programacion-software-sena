@@ -1,4 +1,4 @@
-users = [
+""" users = [
     {"usuario":"juan", "passward":12345, "saldo":0},
     {"usuario":"pedro", "passward":12345, "saldo":0}
 ]
@@ -7,11 +7,11 @@ users.append({"usuario":"danilo", "passward":3510, "saldo":0})
 
 users[0].update({"passward":000000})
 
-print(users[3].get("usuario"))
+print(users[3].get("usuario")) """
 
 #print(users[0], users[5])
 
-
+print(5 == 5.0)
 
   
   

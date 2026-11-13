@@ -22,7 +22,7 @@ else:
 Ejercicio 2: ¿Positivo, negativo o cero? 
 Enunciado: Pide un número al usuario y dile si es positivo, negativo o cero. 
 """
-print("\n==============================================\n\tNUMERO NEGATIVO, POSITIVO O 0\n============================================")
+print("\n==============================================\n\tNUMERO NEGATIVO, POSITIVO O 0\n==============================================")
 num_Po_Ne = int(input("por favor ingrese un numero: "))
 print("-------------------------------------------------------¬")
 if num_Po_Ne > 0:
@@ -40,7 +40,7 @@ elif num_Po_Ne == 0:
 Ejercicio 3: ¿Par o impar? 
 Enunciado: Pide un número entero y dile si es par o impar. (Pista: usa el operador %, que da el residuo de una división). 
 """
-print("\n================================================\n\t  NUMERO PAR O IMPAR\n==================================================")
+print("\n==================================================\n\t  NUMERO PAR O IMPAR\n==================================================")
 num_Par_Imp = int(input("Ingresa un numero entero mayor a 0 para determinar si es par o impar: "))
 print("--------------------------------------------------¬")
 
@@ -131,7 +131,7 @@ elif int(num_May_Men) == int(num_May_Men2):
 
 Enunciado: Pide dos números y una operación (+, -, *, /). Realiza la operación elegida y muestra el resultado. Si la operación no es válida, avisa al usuario.  """
     
-print("\n=================================================================\n\t\t\tCALCULADORA=================================================================")
+print("\n=================================================================\n\t\t\tCALCULADORA\n=================================================================")
 operacionC1= input("Ingrese una operacion matematica, formato(2 + 4): ").strip().split()
 print("-----------------------------------------------------------------¬")
 operacionC1[0] = int(operacionC1[0])

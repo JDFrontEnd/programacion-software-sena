@@ -1081,3 +1081,12 @@ thislist.clear()
 """ 
 Python - Ordenar listas
 """
+
+
+""" 
+while
+"""
+
+while i<6:
+    print(i)
+    i += 1
