@@ -24,7 +24,7 @@ def loginUser():
             confirmacion = usuario_input
             loginPassward()
                 
-    if usuario_input != user[usuario]:
+    if usuario_input != user['usuario']:
         print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
         return loginUser()
     elif usuario_input == users[0].get("usuario"):
