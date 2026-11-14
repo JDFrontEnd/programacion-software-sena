@@ -52,18 +52,18 @@ for a in frutas1[:3],frutas1[3]:
     for b in a:
       print(b) """
       
-   
+"""    
 passward = int(input('pasward: '))
 contador = 0
 passward = 1234
 
-while contador > 4:
+while contador < 4:
   if contador == passward:
     print('Acceso concedido')
     break
   else:
     print('error')
-    contador -= 1
+    contador += 1
 
 
 
@@ -138,6 +138,5 @@ while contador > 0:
         else:
           print('acceso concedido')
           break 
-      
+       """
   
-

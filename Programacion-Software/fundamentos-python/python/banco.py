@@ -16,19 +16,19 @@ def loginUser():
     print("\n-------------------------------------")
     usuario_input = input("ingrese su nombre de usuario: ").strip()
     print("-------------------------------------")   
-    for confirmacion in user["usuario"]:
-        if confirmacion != usuario_input:
+    for confirmacion in users["usuario"]:
+        if usuario_input not in confirmacion:
             print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
             return loginUser()
-        elif confirmacion == usuario_input:
+        elif usuario_input in confirmacion:
             confirmacion = usuario_input
             loginPassward()
                 
-    if usuario_input != user['usuario']:
+"""    if usuario_input != user['usuario']:
         print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
         return loginUser()
     elif usuario_input == users[0].get("usuario"):
-        loginPassward()
+        loginPassward() """
 
 
 # funcion login pasward
