@@ -14,12 +14,8 @@ users = [
 def loginUser():
     global usuario_input
     print("\n-------------------------------------")
-    usuario_input = input("ingrese su nombre de usuario: ")
-    print("-------------------------------------")
-    usuario = usuario.strip()
-    
-    confirmacion
-    
+    usuario_input = input("ingrese su nombre de usuario: ").strip()
+    print("-------------------------------------")   
     for confirmacion in users["usuario"]:
         if confirmacion != usuario_input:
             print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
@@ -28,24 +24,32 @@ def loginUser():
             confirmacion = usuario_input
             loginPassward()
                 
-    if usuario != users[0].get("usuario"):
+    if usuario_input != users[0].get("usuario"):
         print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
         return loginUser()
-    elif usuario == users[0].get("usuario"):
+    elif usuario_input == users[0].get("usuario"):
         loginPassward()
 
 
 # funcion login pasward
 def loginPassward():
     global passward
+    contador = 0
     print("-------------------------------------")
     passward = int(input("ingrese su contraseña: "))
     print("-------------------------------------")
-    if passward != user["passward"]:
-        print("contraseña incorrecta")
-        return loginPassward()
-    elif passward == user["passward"]:
-        action()
+    while contador > 3:
+        if passward == user["passward"]:
+            action()
+            break
+        else:
+            print("contraseña incorrecta\n-------------------------------------")
+            passward = int(input("ingrese su contraseña: "))
+            print("-------------------------------------")
+            contador += 1
+            
+            
+
 
 #funcion para retirear dinero
 def Actionleave():

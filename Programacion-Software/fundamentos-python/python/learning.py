@@ -970,8 +970,6 @@ Para cambiar el valor de un artículo específico, Consulte el número de índic
 thislist = ["apple", "banana", "cherry"]
 thislist[1] = "blackcurrant"
 
-w if 
-
 """ 
 Cambiar un rango de valores de objetos
 Para cambiar el valor de los elementos dentro de un rango específico, define una lista con los nuevos valores y consulta el rango de números de índice donde quieres insertar los nuevos valores:

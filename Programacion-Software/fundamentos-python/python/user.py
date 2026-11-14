@@ -58,14 +58,62 @@ for a in frutas1[:3],frutas1[3]:
       print(b) """
       
       
+""" 
+passward = int(input('pasward: '))
+contador = 4
+passward = 1234
+
+while contador > 0:
+  if contador == passward:
+    print('acces')
+    break
+  else:
+    print('error')
+    contador -= 1
+ """
 
 
+""" contador = 10
+
+while contador > 0:
+  print(contador)
+  contador -= 1
+   """
+   
+""" num = int(input("ingresa un numero positvo y entero: "))
+
+almacenar = 0
+
+contador = True
+
+while contador:
+  contador += num
+  num = int(input("ingresa un numero positvo y entero: "))
+  if num == 0:
+    print('numero logrado')
+    contador = False
+  else:
+    print(f'sigue intentando')
     
-nombre = 'juan'
+print(almacenar)
+ """
+""" 
 
+"""
 
+num_secreto = 20
 
-thislist = ["apple", "banana", "cherry"]
-thislist.insert(5, "1")
-print(thislist)
-# ['apple', 'banana', 'watermelon']
+num = int(input('intenta adivinar el numero allmacenado en num_secreto: '))
+
+contador = True
+
+while contador:
+  if num == num_secreto:
+    print('encontraste el numero secreto')
+    contador = False
+  elif num < num_secreto:
+    print('numero ingresado es menor al secreto')
+    num = int(input('intenta adivinar el numero allmacenado en num_secreto: '))
+  elif num > num_secreto:
+    print('numero ingresado es mayor al secreto')
+    num = int(input('intenta adivinar el numero allmacenado en num_secreto: '))
