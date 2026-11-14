@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="seres-vivos.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="959"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="SerVivo" custom_title="0" dock_id="1" table="4,7:mainSerVivo"/><dock_state state="000000ff00000000fd00000001000000020000038a00000270fc0100000001fb000000160064006f0063006b00420072006f007700730065003101000000000000038a0000012300ffffff0000029f0000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="SerVivo" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="80"/><column index="2" value="66"/><column index="3" value="57"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="clasificacion" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="56"/><column index="2" value="81"/><column index="3" value="99"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="sqlite_sequence" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="52"/><column index="2" value="40"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1*">/*CREATE TABLE &quot;clasificacion&quot; (
+	&quot;clasID&quot; INTEGER PRIMARY KEY AUTOINCREMENT, 
+	&quot;numPatas&quot; INTEGER NOT NULL,
+	&quot;nombreClas&quot; TEXT NOT NULL
+);*/
+
+/*CREATE TABLE &quot;SerVivo&quot; (
+	&quot;serVivoID&quot; INTEGER PRIMARY KEY AUTOINCREMENT,
+	&quot;nombre&quot; TEXT NOT NULL,
+	&quot;clasID&quot; INTEGER REFERENCES &quot;clasificacion&quot;(&quot;clasID&quot;)
+);*/
+
+/*INSERT INTO clasificacion (numPatas, nombreClas) VALUES
+	(0,'Ápodos'),
+	(2,'Bípedos'),
+	(4,'Cuadrúpedos'),
+	(6,'Hexápodos'),
+	(8,'Arácnidos'),
+	(100,'Polípodos');
+*/
+/*
+INSERT INTO SerVivo (nombre, clasID) VALUES
+	('Perro', 3),
+	('Pato', 1),
+	('Gusano', 1),
+	('Caballo', 3),
+	('Pulpo', 4),
+	('Topo', 3);
+*/
+
+SELECT * 
+FROM SerVivo AS s
+INNER JOIN clasificacion AS c ON s.clasID = c.serVivoID
+
+SELECT * 
+FROM libro AS L 
+INNER JOIN GeneroLiterario AS G ON L.LibroID = G.GeneroID  
+
+
+
+
+
+
+
+
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
