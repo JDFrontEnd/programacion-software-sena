@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" pages="6">
   <diagram name="Clase_01_02" id="neRqnhVhwIGspUGpu1B2">
-    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="817" dy="477" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -342,9 +342,6 @@
         <mxCell id="FDIzVB_zXIvQPKVSae_g-11" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;" value="especie" vertex="1">
           <mxGeometry height="30" width="60" x="810" y="1030" as="geometry" />
         </mxCell>
-        <mxCell id="FDIzVB_zXIvQPKVSae_g-12" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=20;fontFamily=Helvetica;fontSize=12;fontColor=default;verticalAlign=middle;" value="id_clas" vertex="1">
-          <mxGeometry height="40" width="80" x="660" y="1090" as="geometry" />
-        </mxCell>
         <mxCell id="FDIzVB_zXIvQPKVSae_g-13" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;" value="num_patas" vertex="1">
           <mxGeometry height="30" width="60" x="1050" y="1080" as="geometry" />
         </mxCell>
@@ -382,15 +379,6 @@
             </Array>
             <mxPoint x="809" y="1054" as="sourcePoint" />
             <mxPoint x="800" y="1020" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="FDIzVB_zXIvQPKVSae_g-20" edge="1" parent="1" source="FDIzVB_zXIvQPKVSae_g-12" style="endArrow=none;html=1;rounded=0;defaultLabelBackgroundColor=page;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0;exitDx=0;exitDy=0;" target="FDIzVB_zXIvQPKVSae_g-1" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="760" y="1064.1399999999999" />
-            </Array>
-            <mxPoint x="779" y="1084" as="sourcePoint" />
-            <mxPoint x="770" y="1050" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="FDIzVB_zXIvQPKVSae_g-21" edge="1" parent="1" source="FDIzVB_zXIvQPKVSae_g-10" style="endArrow=none;html=1;rounded=0;defaultLabelBackgroundColor=page;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="FDIzVB_zXIvQPKVSae_g-1" value="">
@@ -791,6 +779,15 @@
         </mxCell>
         <mxCell id="Q6Mn1Zez_2an-t4x8XK_-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="empleado como entidad" vertex="1">
           <mxGeometry height="30" width="60" x="889.17" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="2qK3BX2dce8hBJxXrVBL-1" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=20;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" value="id_servivo" vertex="1">
+          <mxGeometry height="40" width="80" x="1130" y="970" as="geometry" />
+        </mxCell>
+        <mxCell id="2qK3BX2dce8hBJxXrVBL-2" edge="1" parent="1" source="2qK3BX2dce8hBJxXrVBL-1" style="endArrow=none;html=1;rounded=0;defaultLabelBackgroundColor=page;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="FDIzVB_zXIvQPKVSae_g-2" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1100" y="1055" as="sourcePoint" />
+            <mxPoint x="1080" y="1010" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
