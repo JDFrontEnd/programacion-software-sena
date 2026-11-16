@@ -116,19 +116,6 @@ def action():
     elif actionUser == "salir":
         interfaz()
         
-def registro():
-  global getusuario
-  global getpassward
-  print("==================\n|Registro de cuenta|\n==================\n")
-  print("-----------------------------------")
-  getusuario = ("Nombre de Usuario: ").strip()
-  print("-----------------------------------")
-  getpassward = int("Ingresa una Contraseña: ")
-  print("solo valores numericos")
-  print("-----------------------------------")
-  users.append({"usuario": getusuario, "passward": getpassward, "saldo":0})
-  interfaz()
-    
 
 def interfaz(accoutConfirmation):
     print("\n<===============================================================================>\n\t\t\t HOLA BIENVENIDO A BANK.PY\n<===============================================================================>")
