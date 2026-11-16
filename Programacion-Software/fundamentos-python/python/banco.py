@@ -1,15 +1,8 @@
-import dbm
-
 user = {
     "usuario": "juan diego mesa",
     "passward": 123456789,
     "saldo": 0
 }
-
-users = [
-    {"usuario":"juan", "passward":12345, "saldo":0},
-    {"usuario":"pedro", "passward":12345, "saldo":0}
-]
 
 
 # funcion login usuario
@@ -22,15 +15,7 @@ def loginUser():
         print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
         return loginUser()
     elif usuario_input == user["usuario"]:
-        confirmacion = usuario_input
         loginPassward()
-                
-"""    if usuario_input != user['usuario']:
-        print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
-        return loginUser()
-    elif usuario_input == users[0].get("usuario"):
-        loginPassward() """
-
 
 # funcion login pasward
 def loginPassward():
@@ -39,7 +24,7 @@ def loginPassward():
     print("-------------------------------------")
     passward = int(input("ingrese su contraseña: "))
     print("-------------------------------------")
-    while contador > 3:
+    while contador < 3:
         if passward == user["passward"]:
             break
         else:
@@ -47,6 +32,8 @@ def loginPassward():
             passward = int(input("ingrese su contraseña: "))
             print("-------------------------------------")
             contador += 1
+            if contador == 3:
+                interfaz(False)
     action()
             
 
@@ -143,8 +130,7 @@ def registro():
   interfaz()
     
 
-def interfaz():
-    global accoutConfirmation
+def interfaz(accoutConfirmation):
     print("\n<===============================================================================>\n\t\t\t HOLA BIENVENIDO A BANK.PY\n<===============================================================================>")
     print("\n\t\t\t¿tienes una cuenta abierta?")
     print("\t\t  ----------------------------------------")
@@ -156,6 +142,7 @@ def interfaz():
         loginUser()
     elif accoutConfirmation == "registrar":
         print('crea una cuenta')
-        
+    elif accoutConfirmation == False:
+        print("Demasiados intentos, cuenta bloqueada")
 
-interfaz()
+interfaz(True)

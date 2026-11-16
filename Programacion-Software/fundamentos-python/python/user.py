@@ -140,19 +140,3 @@ while contador > 0:
           break 
        """
   
-
-users = [
-    {"usuario":"juan", "passward":12345, "saldo":0},
-    {"usuario1":"pedro", "passward":12345, "saldo":0}
-]
-
-
-def loginuser():
-  usuario_input = input("ingresa tu nombre de usuario: ")
-  for i in users:
-    if usuario_input in i.values():
-      print("True")
-    elif usuario_input not in i.values():
-      print("False")
-  
-loginuser()
