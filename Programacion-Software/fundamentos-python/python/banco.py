@@ -24,7 +24,7 @@ def loginPassward():
     print("-------------------------------------")
     passward = int(input("ingrese su contraseña: "))
     print("-------------------------------------")
-    while contador < 3:
+    while contador < 2:
         if passward == user["passward"]:
             break
         else:
