@@ -16,13 +16,12 @@ def loginUser():
     print("\n-------------------------------------")
     usuario_input = input("ingrese su nombre de usuario: ").strip()
     print("-------------------------------------")   
-    for confirmacion in users["usuario"]:
-        if usuario_input not in confirmacion:
-            print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
-            return loginUser()
-        elif usuario_input in confirmacion:
-            confirmacion = usuario_input
-            loginPassward()
+    if usuario_input != user["usuario"]:
+        print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
+        return loginUser()
+    elif usuario_input == user["usuario"]:
+        confirmacion = usuario_input
+        loginPassward()
                 
 """    if usuario_input != user['usuario']:
         print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
@@ -40,14 +39,13 @@ def loginPassward():
     print("-------------------------------------")
     while contador > 3:
         if passward == user["passward"]:
-            action()
             break
         else:
             print("contraseña incorrecta\n-------------------------------------")
             passward = int(input("ingrese su contraseña: "))
             print("-------------------------------------")
             contador += 1
-            
+    action()
             
 
 
@@ -112,7 +110,6 @@ def GoBack():
 #action user
 def action():
     global actionUser
-    
     print("\n-------------------------------------")
     print(f"Saldo actual: {user['saldo']}")
     print("-------------")
