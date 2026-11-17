@@ -4,6 +4,11 @@ user = {
     "saldo": 0
 }
 
+users = [
+  {"user": "juan", "passward": 123},
+  {"user": "ana", "passward": 456}
+]
+
 
 # funcion login usuario
 def loginUser():
@@ -11,11 +16,20 @@ def loginUser():
     print("\n-------------------------------------")
     usuario_input = input("ingrese su nombre de usuario: ").strip()
     print("-------------------------------------")   
-    if usuario_input != user["usuario"]:
+    """ if usuario_input != user["usuario"]:
         print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
         return loginUser()
     elif usuario_input == user["usuario"]:
-        loginPassward()
+        loginPassward() """
+    for z in users:
+        for y in z.values():
+            if usuario_input == str(y):
+                loginPassward()
+            else:
+                print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
+                return loginUser()
+            
+    
 
 # funcion login pasward
 def loginPassward():
@@ -117,7 +131,7 @@ def action():
         interfaz()
         
 
-def interfaz(accoutConfirmation):
+def interfaz():
     print("\n<===============================================================================>\n\t\t\t HOLA BIENVENIDO A BANK.PY\n<===============================================================================>")
     print("\n\t\t\t¿tienes una cuenta abierta?")
     print("\t\t  ----------------------------------------")
@@ -129,7 +143,5 @@ def interfaz(accoutConfirmation):
         loginUser()
     elif accoutConfirmation == "registrar":
         print('crea una cuenta')
-    elif accoutConfirmation == False:
-        print("Demasiados intentos, cuenta bloqueada")
 
-interfaz(True)
+interfaz()

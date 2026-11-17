@@ -156,12 +156,17 @@ print('Integer Floor Division:', floor_div_ints) """
 
 
 users = [
-  {"text": "texto", "numeros": 123},
-  {"text1": "texto1", "numeros1": 456}
+  {"user": "juan", "passward": 123},
+  {"user": "ana", "passward": 456}
 ]
 
-for z in users:
-  for y in z.values(key = str.isalpha()):
-    print(y)
+print(users[0].get("passward"))
+print(users[1].get("passward"))
+
+      
+  
+# while True:
+  
+  
 
 
