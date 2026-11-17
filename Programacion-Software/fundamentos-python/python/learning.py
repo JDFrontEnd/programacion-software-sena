@@ -901,7 +901,23 @@ Adición y La resta tiene la misma precedencia, y por tanto Evaluamos la expresi
 # print(5 + 4 - 7 + 3)
 
 
+""" 
+Métodos de lista
+Python tiene un conjunto de métodos integrados que puedes usar en listas.
 
+Method	Description
+append()	Adds an element at the end of the list
+clear()	Removes all the elements from the list
+copy()	Returns a copy of the list
+count()	Returns the number of elements with the specified value
+extend()	Add the elements of a list (or any iterable), to the end of the current list
+index()	Returns the index of the first element with the specified value
+insert()	Adds an element at the specified position
+pop()	Removes the element at the specified position
+remove()	Removes the item with the specified value
+reverse()	Reverses the order of the list
+sort()	Sorts the list
+"""
 
 """ 
 Python Lists
@@ -1115,13 +1131,85 @@ thislist.clear()
 
 """ 
 Python - Ordenar listas
-"""
 
+Los objetos de lista tienen un método que ordena la lista alfanuméricamente, ascendente, por defecto:sort()
+print(thislist)
+""" 
+thislist = ["orange", "mango", "kiwi", "pineapple", "banana"]
+thislist.sort()
+thislist = [100, 50, 65, 82, 23]
+thislist.sort()
+
+""" 
+Ordenar descendente
+Para ordenar de forma descendente, utilice el argumento de palabra clave :reverse = True
+"""
+thislist = ["orange", "mango", "kiwi", "pineapple", "banana"]
+thislist.sort(reverse = True)
+
+""" 
+Ordenación insensible a mayúsculas y minúsculas
+Por defecto, el método distingue entre mayúsculas y minúsculas, lo que resulta en que todas las letras mayúsculas se ordenan antes de las minúsculas:sort()
+
+Ejemplo
+La clasificación que distingue mayúsculas y minúsculas puede dar un resultado inesperado:
+"""
+thislist = ["banana", "Orange", "Kiwi", "cherry"]
+thislist.sort()
+
+# print(thislist)
+
+"""
+Ejemplo:
+
+Basándote en una lista de frutas, quieres una lista nueva, que contenga únicamente las frutas con la letra "A" en el nombre.
+
+Sin comprensión de listas tendrás que escribir una declaración con una prueba condicional en su interior:for
+"""
+fruits = ["apple", "banana", "cherry", "kiwi", "mango"]
+newlist = []
+
+for x in fruits:
+  if "a" in x:
+    newlist.append(x)
+"""
+Con la comprensión de listas puedes hacer todo eso con una sola línea de código: 
+"""
+fruits = ["apple", "banana", "cherry", "kiwi", "mango"]
+
+newlist = [x for x in fruits if "a" in x]
+
+""" 
+La sintaxis
+newlist = [expression for item in iterable if condition == True]
+El valor de retorno es una lista nueva, dejando la lista antigua sin cambios.
+Condición
+La condición es como un filtro que solo acepta los elementos que evalúan hasta .True
+Ejemplo
+Acepta solo elementos que no sean "apple":
+"""
+newlist = [x for x in fruits if x != "apple"]
 
 """ 
 while
+Uso de un bucle de tiempo
+Puedes recorrer los elementos de la lista usando un bucle.while
+
+Utilice la función para determinar la longitud de la lista, Luego empieza desde 0 y recorre los elementos de la lista consultando sus índices.len()
+
+Recuerda aumentar el índice en 1 después de cada iteración.
 """
 
-while i<6:
-    print(i)
-    i += 1
+thislist = ["apple", "banana", "cherry"]
+i = 0
+# while i < len(thislist):
+#   print(thislist[i])
+#   i = i + 1
+  
+""" 
+Python - Comprensión de listas
+"""
+    
+""" 
+for
+"""

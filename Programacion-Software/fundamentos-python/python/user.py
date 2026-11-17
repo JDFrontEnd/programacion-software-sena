@@ -140,7 +140,7 @@ while contador > 0:
           break 
        """
   
-  
+"""   
 my_int_1 = 56
 my_int_2 = -4
 print(type(my_int_2))
@@ -152,4 +152,16 @@ floor_div_ints = my_int_1 // my_int_2
 
 print(type(my_float_1)) # <class 'float'>
 print(type(my_float_2)) # <class 'float'>
-print('Integer Floor Division:', floor_div_ints)
+print('Integer Floor Division:', floor_div_ints) """
+
+
+users = [
+  {"text": "texto", "numeros": 123},
+  {"text1": "texto1", "numeros1": 456}
+]
+
+for z in users:
+  for y in z.values(key = str.isalpha()):
+    print(y)
+
+
