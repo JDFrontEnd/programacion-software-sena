@@ -58,6 +58,9 @@ contador = 0
 while contador < 6:
   usu = int(input("Ingrese un numero: "))
   numeros.append(usu)
-  if(numeros[contador] < 10):
+  if usu < 10:
     numeros.append(usu)
   contador += 1
+  
+print(numeros)
+print(num_com)
