@@ -13,17 +13,16 @@ users = [
 # funcion login usuario
 def loginUser():
     global usuario_input 
-    contador = 0
-    while True:
-        print("\n-------------------------------------")
-        usuario_input = input("ingrese su nombre de usuario: ").strip()
-        print("-------------------------------------")  
-        if users[contador].get("user") == usuario_input:
-            loginPassward()
-            break
+    print("\n-------------------------------------")
+    usuario_input = input("ingrese su nombre de usuario: ").strip()
+    print("-------------------------------------")  
+    for i in users:
+        for y in i.get("user"):
+            if y == usuario_input:
+                loginPassward()
         else:
             print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
-            contador += 1
+            return loginUser()
 
 # funcion login pasward
 def loginPassward():
@@ -36,9 +35,7 @@ def loginPassward():
         if users[contador].get("passward") == passward:
             action()
             break
-        else:
-            print("contraseña incorrecta\n-------------------------------------")
-            contador += 1
+        contador += 1
             
             
 
