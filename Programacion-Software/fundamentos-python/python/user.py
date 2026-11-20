@@ -155,18 +155,76 @@ print(type(my_float_2)) # <class 'float'>
 print('Integer Floor Division:', floor_div_ints) """
 
 
-users = [
+""" users = [
   {"user": "juan", "passward": 123},
   {"user": "ana", "passward": 456}
 ]
 
 print(users[0].get("passward"))
 print(users[1].get("passward"))
-
+ """
       
   
 # while True:
   
+""" numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, True]
+
+contador = 0 """
+
+""" while contador < len(numeros):
+  print(f"{numeros[contador]} Esta en el indice: {contador}")
+  contador += 1 """
+
+""" while True:
+  if numeros[contador] is True:
+    break
+  else: 
+    print(f"{numeros[contador]} Esta en el indice: {contador}")
+  contador += 1
+ """
+
+
+
+# Calcula la suma y el promedio de una lista de notas con while, sin usar sum(
+""" notas = [3.5, 4.0, 2.8, 5.0, 4.2]
+contador = 0
+suma = 0
+
+while contador < len(notas):
+  suma += notas[contador]
+  contador += 1
+print(f"nota: {suma} promedio: {suma / len(notas)}") """
+
+1
+2
+
+#Dada una lista de numeros, crea una nueva lista que contenga solo los numeros pares y otra con los impares.
+
+
+""" numeros = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+pares = []
+impares = []
+contador = 0
+
+while contador < len(numeros):
+    if numeros[contador] % 2 == 0:
+      pares.append(numeros[contador])
+    else:
+      impares.append(numeros[contador])
+    contador += 1
   
+print(pares)
+print(impares) """
 
+# Pide numeros al usuario y guárdalos en una lista hasta que escriba 0. Luego muestra cuántos ingreso, el
+# mayor y el menor (sin usar max() ni min()).
 
+""" a = []
+
+while True:
+  numeros = int(input("Ingrese el primer número: "))
+  if numeros != 0:
+    a.append(numeros)
+  else:
+    break
+print(a) """

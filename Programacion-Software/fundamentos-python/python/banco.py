@@ -12,43 +12,34 @@ users = [
 
 # funcion login usuario
 def loginUser():
-    global usuario_input
-    print("\n-------------------------------------")
-    usuario_input = input("ingrese su nombre de usuario: ").strip()
-    print("-------------------------------------")   
-    """ if usuario_input != user["usuario"]:
-        print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
-        return loginUser()
-    elif usuario_input == user["usuario"]:
-        loginPassward() """
-    for z in users:
-        for y in z.values():
-            if usuario_input == str(y):
-                loginPassward()
-            else:
-                print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
-                return loginUser()
-            
-    
+    global usuario_input 
+    contador = 0
+    while True:
+        print("\n-------------------------------------")
+        usuario_input = input("ingrese su nombre de usuario: ").strip()
+        print("-------------------------------------")  
+        if users[contador].get("user") == usuario_input:
+            loginPassward()
+            break
+        else:
+            print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
+            contador += 1
 
 # funcion login pasward
 def loginPassward():
     global passward
     contador = 0
-    print("-------------------------------------")
-    passward = int(input("ingrese su contraseña: "))
-    print("-------------------------------------")
-    while contador < 2:
-        if passward == user["passward"]:
+    while True:
+        print("-------------------------------------")
+        passward = int(input("ingrese su contraseña: "))
+        print("-------------------------------------")
+        if users[contador].get("passward") == passward:
+            action()
             break
         else:
             print("contraseña incorrecta\n-------------------------------------")
-            passward = int(input("ingrese su contraseña: "))
-            print("-------------------------------------")
             contador += 1
-            if contador == 3:
-                interfaz(False)
-    action()
+            
             
 
 
