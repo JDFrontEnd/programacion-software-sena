@@ -51,16 +51,11 @@ frutas1 = ["lulo", "anis", "poma", frutas]
 for a in frutas1[:3],frutas1[3]:
     for b in a:
       print(b) """
-      
-numeros = []
-num_com = []
-contador = 0
-while contador < 6:
-  usu = int(input("Ingrese un numero: "))
-  numeros.append(usu)
-  if usu < 10:
-    numeros.append(usu)
-  contador += 1
+    
+    
   
-print(numeros)
-print(num_com)
+      
+contador = 0
+      
+while contador < 6:
+  print()
