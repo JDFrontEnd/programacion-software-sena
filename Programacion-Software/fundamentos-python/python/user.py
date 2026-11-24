@@ -53,9 +53,19 @@ for a in frutas1[:3],frutas1[3]:
       print(b) """
     
     
-  
-      
-contador = 0
-      
-while contador < 6:
-  print()
+numbers = []
+numPositivos = []
+numNegativos = []
+
+num = int(input("Ingrese numeros positivos o negativos el programa termina cuando ingrese -1: "))
+
+while num != -1:
+  numbers.append(num)
+  if num < 0:
+    numNegativos.append(num)
+  else:
+    numPositivos.append(num)
+  num = int(input("Ingrese numeros positivos o negativos: "))
+
+print(f"Cantidad de numeros ingresados: {len(numbers)} \nNuemeros positivos ingresados: {numPositivos} \nNumeros negativos ingresados: {numNegativos}")
+
