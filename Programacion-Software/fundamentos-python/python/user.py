@@ -51,16 +51,21 @@ frutas1 = ["lulo", "anis", "poma", frutas]
 for a in frutas1[:3],frutas1[3]:
     for b in a:
       print(b) """
-      
-numeros = []
-num_com = []
-contador = 0
-while contador < 6:
-  usu = int(input("Ingrese un numero: "))
-  numeros.append(usu)
-  if usu < 10:
-    numeros.append(usu)
-  contador += 1
-  
-print(numeros)
-print(num_com)
+    
+    
+numbers = []
+numPositivos = []
+numNegativos = []
+
+num = int(input("Ingrese numeros positivos o negativos el programa termina cuando ingrese -1: "))
+
+while num != -1:
+  numbers.append(num)
+  if num < 0:
+    numNegativos.append(num)
+  else:
+    numPositivos.append(num)
+  num = int(input("Ingrese numeros positivos o negativos: "))
+
+print(f"Cantidad de numeros ingresados: {len(numbers)} \nNuemeros positivos ingresados: {numPositivos} \nNumeros negativos ingresados: {numNegativos}")
+

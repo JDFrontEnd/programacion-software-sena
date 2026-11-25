@@ -9,6 +9,8 @@ users = [
   {"user": "ana", "passward": 456}
 ]
 
+save_user = []
+
 
 # funcion login usuario
 def loginUser():
@@ -19,6 +21,7 @@ def loginUser():
     for i in users:
         for y in i.get("user"):
             if y == usuario_input:
+                save_user.append(usuario_input)
                 loginPassward()
         else:
             print('"ALVERTENCIA"\n El nombre de usuario es incorrecto o no esta registrado, por favor ingrese el usuario correctamente')
@@ -27,14 +30,13 @@ def loginUser():
 # funcion login pasward
 def loginPassward():
     global passward
+    print("-------------------------------------")
+    passward = int(input("ingrese su contraseña: "))
+    print("-------------------------------------")
+    for i in users:
+        print(i)
     contador = 0
-    while True:
-        print("-------------------------------------")
-        passward = int(input("ingrese su contraseña: "))
-        print("-------------------------------------")
-        if users[contador].get("passward") == passward:
-            action()
-            break
+    while contador < 3:
         contador += 1
             
             

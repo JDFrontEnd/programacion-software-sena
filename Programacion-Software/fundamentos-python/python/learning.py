@@ -1213,3 +1213,80 @@ Python - Comprensión de listas
 """ 
 for
 """
+
+
+""" 
+Funciones 
+También puedes escribir tus propias funciones personalizadas. Para hacerlo, usa la palabra clave def, seguida del nombre que deseas darle a tu función, un par de paréntesis y dos puntos. Luego, en una nueva línea, escribe el código que tu función debería ejecutar. El código que ejecuta la función también se conoce como el cuerpo de la función.
+
+Aquí está un ejemplo de una función personalizada llamada hello que imprime la cadena Hello World en el terminal:
+"""
+
+def hello():
+    print("¡Hello Word!")
+    
+# hello()
+
+""" 
+Usar parámetros y argumentos
+Aquí hay otra función simple que imprime la suma de dos números en el terminal:
+"""
+
+def calculo_sum(a,b):
+    print(a + b)
+    
+""" 
+Puedes ver que nuestra función, calculate_sum, tiene a y b en sus paréntesis, separados por una coma. Esos se llaman parámetros. Piensa en los parámetros como variables de marcador de posición que actúan como "espacios" para los valores que pasas a las funciones cuando las llamas.
+"""
+""" 
+Para usar los parámetros, tienes que pasar "argumentos". Los argumentos son los valores que pasas a una función cuando la llamas.
+
+Aquí está cómo llamar a la función calculate_sum para sumar juntos los números 3 y 1:
+"""
+    
+# calculo_sum(3, 1)
+
+""" 
+    !importante
+        ----------------------------------------
+        Si llamas a la función sin el número correcto de argumentos, obtendrás un TypeError:
+        -----------------------------------------
+"""
+# calculate_sum()
+
+# TypeError: calculate_sum() missing 2 required positional arguments: 'a' and 'b'
+
+""" 
+Argumentos posicionales y por palabra clave
+Los argumentos en calculate_sum(3, 1) son argumentos posicionales. Python los asigna a los parámetros según su posición: 3 va a a y 1 va a b.
+
+Aquí tienes una función donde el orden de los argumentos importa:
+"""
+
+def introduce(name, age):
+    print(f'My name is {name} and I am {age} years old.')
+
+introduce('Alice', 25)
+# My name is Alice and I am 25 years old.
+
+""" 
+También puedes pasar argumentos por palabra clave escribiendo el nombre del parámetro seguido de = y un valor. Python asigna estos argumentos por nombre, así que puedes escribirlos en un orden diferente:
+"""
+
+introduce(age=25, name='Alice')
+# My name is Alice and I am 25 years old.
+
+""" 
+Aquí, name='Alice' pasa 'Alice' al parámetro name. No asigna una variable llamada name afuera de la función.
+
+Puedes combinar argumentos posicionales y por palabra clave, pero los argumentos posicionales deben ir primero:
+"""
+
+
+""" 
+Devolver valores desde funciones
+Las funciones también usan una palabra clave especial return para salir de la función y devolver un valor. Si no usas explícitamente return, Python devolverá None por defecto.
+
+Como aprendiste en la lección sobre operadores de identidad, None representa la ausencia de un valor. Aquí indica que la función no ha devuelto un resultado explícito.
+
+"""

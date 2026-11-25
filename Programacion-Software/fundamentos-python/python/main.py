@@ -400,8 +400,30 @@ while True:
 print(a) """
 
 
+""" num = int(input("Ingresa un numero: "))
+
+contador = num
+
+while contador > 0:
+  print(contador)
+  contador -= 1
+print("¡Despegue!") """
 
 
 
 
+numbers = []
+numPositivos = []
+numNegativos = []
 
+num = int(input("Ingrese numeros positivos o negativos el programa termina cuando ingrese -1: "))
+
+while num != -1:
+  numbers.append(num)
+  if num < 0:
+    numNegativos.append(num)
+  else:
+    numPositivos.append(num)
+  num = int(input("Ingrese numeros positivos o negativos: "))
+
+print(f"Cantidad de numeros ingresados: {numbers} \nNuemeros positivos ingresados: {numPositivos} \nNumeros negativos ingresados: {numNegativos}")
